@@ -1,0 +1,13 @@
+.table {
+	text-align: center;
+	margin: 0 auto;
+	width: 60%;
+	height: 100%;
+	position: relative;
+}
+
+.wrapper {
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+}
