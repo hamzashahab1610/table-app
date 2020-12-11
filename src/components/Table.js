@@ -52,10 +52,10 @@ const tableIcons = {
 	ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-function validateEmail(email) {
-	const re = /^((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))$/;
-	return re.test(String(email).toLowerCase());
-}
+// function validateEmail(email) {
+// 	const re = /^((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))$/;
+// 	return re.test(String(email).toLowerCase());
+// }
 
 function Table({ name }) {
 	var columns = [
@@ -71,9 +71,9 @@ function Table({ name }) {
 		// 		/>
 		// 	),
 		// },
-		{ title: "Market Name", field: "first_name" },
-		{ title: "Companies", field: "last_name" },
-		{ title: "Keywords", field: "email" },
+		{ title: "Market Name", field: "market_name" },
+		{ title: "Companies", field: "companies" },
+		{ title: "Keywords", field: "keywords" },
 	];
 	const [data, setData] = useState([]); //table data
 
@@ -84,9 +84,9 @@ function Table({ name }) {
 	const [errorMessages, setErrorMessages] = useState([]);
 
 	useEffect(() => {
-		api.get("/users")
+		api.get("/markets")
 			.then((res) => {
-				setData(res.data.data);
+				setData(res.data);
 			})
 			.catch((error) => {
 				console.log("Error");
@@ -96,24 +96,28 @@ function Table({ name }) {
 	const handleRowUpdate = (newData, oldData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.first_name === "") {
-			errorList.push("Please enter first name");
+		if (newData.market_name === "") {
+			errorList.push("Please enter market name");
 		}
-		if (newData.last_name === "") {
-			errorList.push("Please enter last name");
+		if (newData.companies === "") {
+			errorList.push("Please enter companies");
 		}
-		if (newData.email === "" || validateEmail(newData.email) === false) {
-			errorList.push("Please enter a valid email");
+		if (
+			newData.keywords === ""
+			//validateEmail(newData.keywords) === false
+		) {
+			errorList.push("Please enter valid keywords");
 		}
 
 		if (errorList.length < 1) {
-			api.patch("/users/" + newData.id, newData)
+			api.patch("/markets/" + newData._id, newData)
 				.then((res) => {
 					const dataUpdate = [...data];
-					const index = oldData.tableData.id;
+					const index = oldData.tableData._id;
 					dataUpdate[index] = newData;
 					setData([...dataUpdate]);
 					resolve();
+					window.location.reload(false);
 					setIserror(false);
 					setErrorMessages([]);
 				})
@@ -132,27 +136,28 @@ function Table({ name }) {
 	const handleRowAdd = (newData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.first_name === undefined) {
-			errorList.push("Please enter first name");
+		if (newData.market_name === undefined) {
+			errorList.push("Please enter market name");
 		}
-		if (newData.last_name === undefined) {
-			errorList.push("Please enter last name");
+		if (newData.companies === undefined) {
+			errorList.push("Please enter companies");
 		}
 		if (
-			newData.email === undefined ||
-			validateEmail(newData.email) === false
+			newData.keywords === undefined
+			//validateEmail(newData.email) === false
 		) {
-			errorList.push("Please enter a valid email");
+			errorList.push("Please enter keywords");
 		}
 
 		if (errorList.length < 1) {
 			//no error
-			api.post("/users", newData)
+			api.post("/markets", newData)
 				.then((res) => {
 					let dataToAdd = [...data];
 					dataToAdd.push(newData);
 					setData(dataToAdd);
 					resolve();
+					window.location.reload(false);
 					setErrorMessages([]);
 					setIserror(false);
 				})
@@ -169,13 +174,15 @@ function Table({ name }) {
 	};
 
 	const handleRowDelete = (oldData, resolve) => {
-		api.delete("/users/" + oldData.id)
+		api.delete("/markets/" + oldData._id)
 			.then((res) => {
 				const dataDelete = [...data];
-				const index = oldData.tableData.id;
-				dataDelete.splice(index, 1);
-				setData([...dataDelete]);
+				const index = oldData.tableData._id;
+				var x = dataDelete.filter((item) => item._id !== index);
+				//dataDelete.splice(index, 1);
+				setData([...x]);
 				resolve();
+				window.location.reload(false);
 			})
 			.catch((error) => {
 				setErrorMessages(["Delete failed! Server error"]);
