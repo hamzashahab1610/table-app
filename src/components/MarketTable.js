@@ -57,7 +57,12 @@ const tableIcons = {
 // 	return re.test(String(email).toLowerCase());
 // }
 
-function Table() {
+function Table({ companies }) {
+	var lookup = {};
+	companies.forEach((company) => {
+		lookup[company.company_name] = company.company_name;
+	});
+
 	var columns = [
 		//{ title: "id", field: "id", hidden: true },
 		// {
@@ -72,12 +77,10 @@ function Table() {
 		// 	),
 		// },
 		{ title: "Market Name", field: "market_name" },
-		{ title: "Companies", field: "companies" },
+		{ title: "Companies", field: "companies", lookup: lookup },
 		{ title: "Keywords", field: "keywords" },
 	];
 	const [data, setData] = useState([]); //table data
-
-	console.log("data", data);
 
 	//for error handling
 	const [iserror, setIserror] = useState(false);
