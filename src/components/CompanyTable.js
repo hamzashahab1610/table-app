@@ -57,9 +57,9 @@ const tableIcons = {
 // 	return re.test(String(email).toLowerCase());
 // }
 
-function Table({ name }) {
+function Table() {
 	var columns = [
-		{ title: "id", field: "id", hidden: true },
+		//{ title: "id", field: "id", hidden: true },
 		// {
 		// 	title: "Avatar",
 		// 	render: (rowData) => (
@@ -71,8 +71,8 @@ function Table({ name }) {
 		// 		/>
 		// 	),
 		// },
-		{ title: "Market Name", field: "market_name" },
-		{ title: "Companies", field: "companies" },
+		{ title: "Company Name", field: "company_name" },
+		//{ title: "Companies", field: "companies" },
 		{ title: "Keywords", field: "keywords" },
 	];
 	const [data, setData] = useState([]); //table data
@@ -84,7 +84,7 @@ function Table({ name }) {
 	const [errorMessages, setErrorMessages] = useState([]);
 
 	useEffect(() => {
-		api.get("/markets")
+		api.get("/companies")
 			.then((res) => {
 				setData(res.data);
 			})
@@ -96,12 +96,12 @@ function Table({ name }) {
 	const handleRowUpdate = (newData, oldData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.market_name === "") {
-			errorList.push("Please enter market name");
+		if (newData.company_name === "") {
+			errorList.push("Please enter company name");
 		}
-		if (newData.companies === "") {
-			errorList.push("Please enter companies");
-		}
+		// if (newData.companies === "") {
+		// 	errorList.push("Please enter companies");
+		// }
 		if (
 			newData.keywords === ""
 			//validateEmail(newData.keywords) === false
@@ -110,7 +110,7 @@ function Table({ name }) {
 		}
 
 		if (errorList.length < 1) {
-			api.patch("/markets/" + newData._id, newData)
+			api.patch("/companies/" + newData._id, newData)
 				.then((res) => {
 					const dataUpdate = [...data];
 					const index = oldData.tableData._id;
@@ -136,12 +136,12 @@ function Table({ name }) {
 	const handleRowAdd = (newData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.market_name === undefined) {
-			errorList.push("Please enter market name");
+		if (newData.company_name === undefined) {
+			errorList.push("Please enter company name");
 		}
-		if (newData.companies === undefined) {
-			errorList.push("Please enter companies");
-		}
+		// if (newData.companies === undefined) {
+		// 	errorList.push("Please enter companies");
+		// }
 		if (
 			newData.keywords === undefined
 			//validateEmail(newData.email) === false
@@ -151,7 +151,7 @@ function Table({ name }) {
 
 		if (errorList.length < 1) {
 			//no error
-			api.post("/markets", newData)
+			api.post("/companies", newData)
 				.then((res) => {
 					let dataToAdd = [...data];
 					dataToAdd.push(newData);
@@ -174,7 +174,7 @@ function Table({ name }) {
 	};
 
 	const handleRowDelete = (oldData, resolve) => {
-		api.delete("/markets/" + oldData._id)
+		api.delete("/companies/" + oldData._id)
 			.then((res) => {
 				const dataDelete = [...data];
 				const index = oldData.tableData._id;
@@ -193,47 +193,44 @@ function Table({ name }) {
 
 	return (
 		<div className="table">
-			<div className="wrapper">
-				<Grid container spacing={1}>
-					{/* <Grid item xs={3}></Grid> */}
-					<Grid item xs={12}>
-						<div>
-							{iserror && (
-								<Alert severity="error">
-									{errorMessages.map((msg, i) => {
-										return <div key={i}>{msg}</div>;
-									})}
-								</Alert>
-							)}
-						</div>
-						<MaterialTable
-							title={name}
-							columns={columns}
-							data={data}
-							icons={tableIcons}
-							editable={{
-								onRowUpdate: (newData, oldData) =>
-									new Promise((resolve) => {
-										handleRowUpdate(
-											newData,
-											oldData,
-											resolve,
-										);
-									}),
-								onRowAdd: (newData) =>
-									new Promise((resolve) => {
-										handleRowAdd(newData, resolve);
-									}),
-								onRowDelete: (oldData) =>
-									new Promise((resolve) => {
-										handleRowDelete(oldData, resolve);
-									}),
-							}}
-						/>
-					</Grid>
-					{/* <Grid item xs={3}></Grid> */}
+			<Grid container spacing={1}>
+				{/* <Grid item xs={3}></Grid> */}
+				<Grid item xs={12}>
+					<div>
+						{iserror && (
+							<Alert severity="error">
+								{errorMessages.map((msg, i) => {
+									return <div key={i}>{msg}</div>;
+								})}
+							</Alert>
+						)}
+					</div>
+					<MaterialTable
+						title="Company Table"
+						columns={columns}
+						data={data}
+						icons={tableIcons}
+						editable={{
+							onRowUpdate: (newData, oldData) =>
+								new Promise((resolve) => {
+									handleRowUpdate(newData, oldData, resolve);
+								}),
+							onRowAdd: (newData) =>
+								new Promise((resolve) => {
+									handleRowAdd(newData, resolve);
+								}),
+							onRowDelete: (oldData) =>
+								new Promise((resolve) => {
+									handleRowDelete(oldData, resolve);
+								}),
+						}}
+						options={{
+							exportButton: true,
+						}}
+					/>
 				</Grid>
-			</div>
+				{/* <Grid item xs={3}></Grid> */}
+			</Grid>
 		</div>
 	);
 }

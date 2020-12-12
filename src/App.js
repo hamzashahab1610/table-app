@@ -1,12 +1,14 @@
 import React from "react";
 import "./App.css";
-import Table from "./components/Table";
+import MarketTable from "./components/MarketTable";
+import CompanyTable from "./components/CompanyTable";
 
 function App() {
 	return (
 		<div className="App">
 			<h1>Tables App</h1>
-			<Table name={"Market Table"} />
+			<MarketTable />
+			<CompanyTable />
 		</div>
 	);
 }
