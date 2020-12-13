@@ -74,6 +74,14 @@ function Table() {
 		{ title: "Company Name", field: "company_name" },
 		//{ title: "Companies", field: "companies" },
 		{ title: "Keywords", field: "keywords" },
+		{ title: "Total Funding", field: "total_funding" },
+		{ title: "Last Funding Date", field: "last_funding_date" },
+		{ title: "Last Funding Amount", field: "last_funding_amount" },
+		{
+			title: "Top Player",
+			field: "top_player",
+			lookup: { Yes: "Yes", No: "No" },
+		},
 	];
 	const [data, setData] = useState([]); //table data
 
@@ -99,9 +107,18 @@ function Table() {
 		if (newData.company_name === "") {
 			errorList.push("Please enter company name");
 		}
-		// if (newData.companies === "") {
-		// 	errorList.push("Please enter companies");
-		// }
+		if (newData.total_funding === "") {
+			errorList.push("Please enter total fundings");
+		}
+		if (newData.last_funding_date === "") {
+			errorList.push("Please enter last funding date");
+		}
+		if (newData.last_funding_amount === "") {
+			errorList.push("Please enter last funding amount");
+		}
+		if (newData.top_player === "") {
+			errorList.push("Please enter top player");
+		}
 		if (
 			newData.keywords === ""
 			//validateEmail(newData.keywords) === false
@@ -139,14 +156,23 @@ function Table() {
 		if (newData.company_name === undefined) {
 			errorList.push("Please enter company name");
 		}
-		// if (newData.companies === undefined) {
-		// 	errorList.push("Please enter companies");
-		// }
+		if (newData.total_funding === undefined) {
+			errorList.push("Please enter total fundings");
+		}
+		if (newData.last_funding_date === undefined) {
+			errorList.push("Please enter last funding date");
+		}
+		if (newData.last_funding_amount === undefined) {
+			errorList.push("Please enter last funding amount");
+		}
+		if (newData.top_player === undefined) {
+			errorList.push("Please enter top player");
+		}
 		if (
 			newData.keywords === undefined
-			//validateEmail(newData.email) === false
+			//validateEmail(newData.keywords) === false
 		) {
-			errorList.push("Please enter keywords");
+			errorList.push("Please enter valid keywords");
 		}
 
 		if (errorList.length < 1) {

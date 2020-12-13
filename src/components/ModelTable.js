@@ -76,9 +76,9 @@ function Table({ companies }) {
 		// 		/>
 		// 	),
 		// },
-		{ title: "Market Name", field: "market_name" },
-		{ title: "Companies", field: "companies" },
-		{ title: "Keywords", field: "keywords" },
+		{ title: "Model Name", field: "model_name" },
+		{ title: "Category", field: "category" },
+		{ title: "Description", field: "description" },
 	];
 	const [data, setData] = useState([]); //table data
 
@@ -87,7 +87,7 @@ function Table({ companies }) {
 	const [errorMessages, setErrorMessages] = useState([]);
 
 	useEffect(() => {
-		api.get("/markets")
+		api.get("/models")
 			.then((res) => {
 				setData(res.data);
 			})
@@ -99,21 +99,21 @@ function Table({ companies }) {
 	const handleRowUpdate = (newData, oldData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.market_name === "") {
-			errorList.push("Please enter market name");
+		if (newData.model_name === "") {
+			errorList.push("Please enter model name");
 		}
-		if (newData.companies === "") {
-			errorList.push("Please enter companies");
+		if (newData.category === "") {
+			errorList.push("Please enter category");
 		}
 		if (
-			newData.keywords === ""
-			//validateEmail(newData.keywords) === false
+			newData.description === ""
+			//validateEmail(newData.description) === false
 		) {
-			errorList.push("Please enter valid keywords");
+			errorList.push("Please enter valid description");
 		}
 
 		if (errorList.length < 1) {
-			api.patch("/markets/" + newData._id, newData)
+			api.patch("/models/" + newData._id, newData)
 				.then((res) => {
 					const dataUpdate = [...data];
 					const index = oldData.tableData._id;
@@ -139,22 +139,21 @@ function Table({ companies }) {
 	const handleRowAdd = (newData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.market_name === undefined) {
-			errorList.push("Please enter market name");
+		if (newData.model_name === undefined) {
+			errorList.push("Please enter model name");
 		}
-		if (newData.companies === undefined) {
-			errorList.push("Please enter companies");
+		if (newData.category === undefined) {
+			errorList.push("Please enter category");
 		}
 		if (
-			newData.keywords === undefined
-			//validateEmail(newData.email) === false
+			newData.description === undefined
+			//validateEmail(newData.description) === false
 		) {
-			errorList.push("Please enter keywords");
+			errorList.push("Please enter valid description");
 		}
-
 		if (errorList.length < 1) {
 			//no error
-			api.post("/markets", newData)
+			api.post("/models", newData)
 				.then((res) => {
 					let dataToAdd = [...data];
 					dataToAdd.push(newData);
@@ -177,7 +176,7 @@ function Table({ companies }) {
 	};
 
 	const handleRowDelete = (oldData, resolve) => {
-		api.delete("/markets/" + oldData._id)
+		api.delete("/models/" + oldData._id)
 			.then((res) => {
 				const dataDelete = [...data];
 				const index = oldData.tableData._id;
@@ -209,7 +208,7 @@ function Table({ companies }) {
 						)}
 					</div>
 					<MaterialTable
-						title="Market Table"
+						title="Model Table"
 						columns={columns}
 						data={data}
 						icons={tableIcons}

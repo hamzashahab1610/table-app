@@ -76,9 +76,11 @@ function Table({ companies }) {
 		// 		/>
 		// 	),
 		// },
-		{ title: "Market Name", field: "market_name" },
-		{ title: "Companies", field: "companies" },
-		{ title: "Keywords", field: "keywords" },
+		{ title: "Market", field: "market" },
+		{ title: "App Name", field: "app_name" },
+		{ title: "Description", field: "description" },
+		{ title: "Planned Release", field: "planned_release" },
+		{ title: "Model", field: "model" },
 	];
 	const [data, setData] = useState([]); //table data
 
@@ -87,7 +89,7 @@ function Table({ companies }) {
 	const [errorMessages, setErrorMessages] = useState([]);
 
 	useEffect(() => {
-		api.get("/markets")
+		api.get("/apps")
 			.then((res) => {
 				setData(res.data);
 			})
@@ -99,21 +101,27 @@ function Table({ companies }) {
 	const handleRowUpdate = (newData, oldData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.market_name === "") {
-			errorList.push("Please enter market name");
+		if (newData.market === "") {
+			errorList.push("Please enter market");
 		}
-		if (newData.companies === "") {
-			errorList.push("Please enter companies");
+		if (newData.app_name === "") {
+			errorList.push("Please enter app name");
+		}
+		if (newData.planned_release === "") {
+			errorList.push("Please enter planned release");
+		}
+		if (newData.model === "") {
+			errorList.push("Please enter model");
 		}
 		if (
-			newData.keywords === ""
-			//validateEmail(newData.keywords) === false
+			newData.description === ""
+			//validateEmail(newData.description) === false
 		) {
-			errorList.push("Please enter valid keywords");
+			errorList.push("Please enter valid description");
 		}
 
 		if (errorList.length < 1) {
-			api.patch("/markets/" + newData._id, newData)
+			api.patch("/apps/" + newData._id, newData)
 				.then((res) => {
 					const dataUpdate = [...data];
 					const index = oldData.tableData._id;
@@ -139,22 +147,28 @@ function Table({ companies }) {
 	const handleRowAdd = (newData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.market_name === undefined) {
-			errorList.push("Please enter market name");
+		if (newData.market === undefined) {
+			errorList.push("Please enter market");
 		}
-		if (newData.companies === undefined) {
-			errorList.push("Please enter companies");
+		if (newData.app_name === undefined) {
+			errorList.push("Please enter app name");
+		}
+		if (newData.planned_release === undefined) {
+			errorList.push("Please enter planned release");
+		}
+		if (newData.model === undefined) {
+			errorList.push("Please enter model");
 		}
 		if (
-			newData.keywords === undefined
-			//validateEmail(newData.email) === false
+			newData.description === undefined
+			//validateEmail(newData.description) === false
 		) {
-			errorList.push("Please enter keywords");
+			errorList.push("Please enter valid description");
 		}
 
 		if (errorList.length < 1) {
 			//no error
-			api.post("/markets", newData)
+			api.post("/apps", newData)
 				.then((res) => {
 					let dataToAdd = [...data];
 					dataToAdd.push(newData);
@@ -177,7 +191,7 @@ function Table({ companies }) {
 	};
 
 	const handleRowDelete = (oldData, resolve) => {
-		api.delete("/markets/" + oldData._id)
+		api.delete("/apps/" + oldData._id)
 			.then((res) => {
 				const dataDelete = [...data];
 				const index = oldData.tableData._id;
@@ -209,7 +223,7 @@ function Table({ companies }) {
 						)}
 					</div>
 					<MaterialTable
-						title="Market Table"
+						title="App Table"
 						columns={columns}
 						data={data}
 						icons={tableIcons}

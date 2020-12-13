@@ -76,9 +76,10 @@ function Table({ companies }) {
 		// 		/>
 		// 	),
 		// },
-		{ title: "Market Name", field: "market_name" },
-		{ title: "Companies", field: "companies" },
-		{ title: "Keywords", field: "keywords" },
+		{ title: "Keyword", field: "keyword" },
+		{ title: "Search Engine", field: "search_engine" },
+		{ title: "Country", field: "country" },
+		{ title: "Count", field: "count" },
 	];
 	const [data, setData] = useState([]); //table data
 
@@ -87,7 +88,7 @@ function Table({ companies }) {
 	const [errorMessages, setErrorMessages] = useState([]);
 
 	useEffect(() => {
-		api.get("/markets")
+		api.get("/keyword_count")
 			.then((res) => {
 				setData(res.data);
 			})
@@ -99,21 +100,24 @@ function Table({ companies }) {
 	const handleRowUpdate = (newData, oldData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.market_name === "") {
-			errorList.push("Please enter market name");
+		if (newData.keyword === "") {
+			errorList.push("Please enter keyword");
 		}
-		if (newData.companies === "") {
-			errorList.push("Please enter companies");
+		if (newData.search_engine === "") {
+			errorList.push("Please enter search engine");
+		}
+		if (newData.count === "") {
+			errorList.push("Please enter count");
 		}
 		if (
-			newData.keywords === ""
-			//validateEmail(newData.keywords) === false
+			newData.country === ""
+			//validateEmail(newData.country) === false
 		) {
-			errorList.push("Please enter valid keywords");
+			errorList.push("Please enter valid country");
 		}
 
 		if (errorList.length < 1) {
-			api.patch("/markets/" + newData._id, newData)
+			api.patch("/keyword_count/" + newData._id, newData)
 				.then((res) => {
 					const dataUpdate = [...data];
 					const index = oldData.tableData._id;
@@ -139,22 +143,25 @@ function Table({ companies }) {
 	const handleRowAdd = (newData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.market_name === undefined) {
-			errorList.push("Please enter market name");
+		if (newData.keyword === undefined) {
+			errorList.push("Please enter keyword");
 		}
-		if (newData.companies === undefined) {
-			errorList.push("Please enter companies");
+		if (newData.search_engine === undefined) {
+			errorList.push("Please enter search engine");
+		}
+		if (newData.count === undefined) {
+			errorList.push("Please enter count");
 		}
 		if (
-			newData.keywords === undefined
-			//validateEmail(newData.email) === false
+			newData.country === undefined
+			//validateEmail(newData.country) === false
 		) {
-			errorList.push("Please enter keywords");
+			errorList.push("Please enter valid country");
 		}
 
 		if (errorList.length < 1) {
 			//no error
-			api.post("/markets", newData)
+			api.post("/keyword_count", newData)
 				.then((res) => {
 					let dataToAdd = [...data];
 					dataToAdd.push(newData);
@@ -177,7 +184,7 @@ function Table({ companies }) {
 	};
 
 	const handleRowDelete = (oldData, resolve) => {
-		api.delete("/markets/" + oldData._id)
+		api.delete("/keyword_count/" + oldData._id)
 			.then((res) => {
 				const dataDelete = [...data];
 				const index = oldData.tableData._id;
@@ -209,7 +216,7 @@ function Table({ companies }) {
 						)}
 					</div>
 					<MaterialTable
-						title="Market Table"
+						title="Keyword Count Table"
 						columns={columns}
 						data={data}
 						icons={tableIcons}

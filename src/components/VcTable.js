@@ -76,9 +76,10 @@ function Table({ companies }) {
 		// 		/>
 		// 	),
 		// },
-		{ title: "Market Name", field: "market_name" },
-		{ title: "Companies", field: "companies" },
-		{ title: "Keywords", field: "keywords" },
+		{ title: "VC Name", field: "vc_name" },
+		{ title: "Location", field: "location" },
+		{ title: "Markets", field: "markets" },
+		{ title: "Companies Funded", field: "companies_funded" },
 	];
 	const [data, setData] = useState([]); //table data
 
@@ -87,7 +88,7 @@ function Table({ companies }) {
 	const [errorMessages, setErrorMessages] = useState([]);
 
 	useEffect(() => {
-		api.get("/markets")
+		api.get("/vcs")
 			.then((res) => {
 				setData(res.data);
 			})
@@ -99,21 +100,21 @@ function Table({ companies }) {
 	const handleRowUpdate = (newData, oldData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.market_name === "") {
-			errorList.push("Please enter market name");
+		if (newData.vc_name === "") {
+			errorList.push("Please enter VC name");
 		}
-		if (newData.companies === "") {
-			errorList.push("Please enter companies");
+		if (newData.location === "") {
+			errorList.push("Please enter location");
 		}
-		if (
-			newData.keywords === ""
-			//validateEmail(newData.keywords) === false
-		) {
-			errorList.push("Please enter valid keywords");
+		if (newData.markets === "") {
+			errorList.push("Please enter markets");
+		}
+		if (newData.companies_funded === "") {
+			errorList.push("Please enter companies funded");
 		}
 
 		if (errorList.length < 1) {
-			api.patch("/markets/" + newData._id, newData)
+			api.patch("/vcs/" + newData._id, newData)
 				.then((res) => {
 					const dataUpdate = [...data];
 					const index = oldData.tableData._id;
@@ -139,22 +140,22 @@ function Table({ companies }) {
 	const handleRowAdd = (newData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.market_name === undefined) {
-			errorList.push("Please enter market name");
+		if (newData.vc_name === undefined) {
+			errorList.push("Please enter VC name");
 		}
-		if (newData.companies === undefined) {
-			errorList.push("Please enter companies");
+		if (newData.location === undefined) {
+			errorList.push("Please enter location");
 		}
-		if (
-			newData.keywords === undefined
-			//validateEmail(newData.email) === false
-		) {
-			errorList.push("Please enter keywords");
+		if (newData.markets === undefined) {
+			errorList.push("Please enter markets");
+		}
+		if (newData.companies_funded === undefined) {
+			errorList.push("Please enter companies funded");
 		}
 
 		if (errorList.length < 1) {
 			//no error
-			api.post("/markets", newData)
+			api.post("/vcs", newData)
 				.then((res) => {
 					let dataToAdd = [...data];
 					dataToAdd.push(newData);
@@ -177,7 +178,7 @@ function Table({ companies }) {
 	};
 
 	const handleRowDelete = (oldData, resolve) => {
-		api.delete("/markets/" + oldData._id)
+		api.delete("/vcs/" + oldData._id)
 			.then((res) => {
 				const dataDelete = [...data];
 				const index = oldData.tableData._id;
@@ -209,7 +210,7 @@ function Table({ companies }) {
 						)}
 					</div>
 					<MaterialTable
-						title="Market Table"
+						title="VCs Table"
 						columns={columns}
 						data={data}
 						icons={tableIcons}
