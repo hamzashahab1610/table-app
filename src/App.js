@@ -18,6 +18,7 @@ import ShellTable from "./components/ShellTable";
 import AppTable from "./components/AppTable";
 import AdTable from "./components/AdTable";
 import VcTable from "./components/VcTable";
+import FundingTable from "./components/FundingTable";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import api from "./api/api";
@@ -143,6 +144,15 @@ function App() {
 							>
 								<Button color="inherit">VCs</Button>
 							</Link>
+							<Link
+								to="/fundings"
+								style={{
+									textDecoration: "none",
+									color: "white",
+								}}
+							>
+								<Button color="inherit">Fundings</Button>
+							</Link>
 						</Toolbar>
 					</AppBar>
 
@@ -167,6 +177,9 @@ function App() {
 						</Route>
 						<Route path="/vcs">
 							<VcTable companies={companies} />
+						</Route>
+						<Route path="/fundings">
+							<FundingTable companies={companies} />
 						</Route>
 						<Route path="/keyword_count">
 							<KeywordCountTable companies={companies} />

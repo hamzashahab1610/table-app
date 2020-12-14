@@ -76,11 +76,12 @@ function Table({ companies }) {
 		// 		/>
 		// 	),
 		// },
+		{ title: "VC Name", field: "vc_name" },
+		{ title: "Company", field: "company" },
 		{ title: "Market", field: "market" },
-		{ title: "App Name", field: "app_name" },
-		{ title: "Description", field: "description" },
-		{ title: "Planned Release", field: "planned_release", type: "date" },
-		{ title: "Model", field: "model" },
+		{ title: "Date", field: "date", type: "date" },
+		{ title: "Amount", field: "amount", type: "numeric" },
+		{ title: "Round", field: "round" },
 	];
 	const [data, setData] = useState([]); //table data
 
@@ -89,7 +90,7 @@ function Table({ companies }) {
 	const [errorMessages, setErrorMessages] = useState([]);
 
 	useEffect(() => {
-		api.get("/apps")
+		api.get("/fundings")
 			.then((res) => {
 				setData(res.data);
 			})
@@ -101,27 +102,27 @@ function Table({ companies }) {
 	const handleRowUpdate = (newData, oldData, resolve) => {
 		//validation
 		let errorList = [];
+		if (newData.vc_name === "") {
+			errorList.push("Please enter VC Name");
+		}
+		if (newData.company === "") {
+			errorList.push("Please enter company");
+		}
 		if (newData.market === "") {
 			errorList.push("Please enter market");
 		}
-		if (newData.app_name === "") {
-			errorList.push("Please enter app name");
+		if (newData.date === "") {
+			errorList.push("Please enter date");
 		}
-		if (newData.planned_release === "") {
-			errorList.push("Please enter planned release");
+		if (newData.amount === "") {
+			errorList.push("Please enter amount");
 		}
-		if (newData.model === "") {
-			errorList.push("Please enter model");
-		}
-		if (
-			newData.description === ""
-			//validateEmail(newData.description) === false
-		) {
-			errorList.push("Please enter valid description");
+		if (newData.round === "") {
+			errorList.push("Please enter round");
 		}
 
 		if (errorList.length < 1) {
-			api.patch("/apps/" + newData._id, newData)
+			api.patch("/fundings/" + newData._id, newData)
 				.then((res) => {
 					const dataUpdate = [...data];
 					const index = oldData.tableData._id;
@@ -147,28 +148,28 @@ function Table({ companies }) {
 	const handleRowAdd = (newData, resolve) => {
 		//validation
 		let errorList = [];
+		if (newData.vc_name === undefined) {
+			errorList.push("Please enter VC Name");
+		}
+		if (newData.company === undefined) {
+			errorList.push("Please enter company");
+		}
 		if (newData.market === undefined) {
 			errorList.push("Please enter market");
 		}
-		if (newData.app_name === undefined) {
-			errorList.push("Please enter app name");
+		if (newData.date === undefined) {
+			errorList.push("Please enter date");
 		}
-		if (newData.planned_release === undefined) {
-			errorList.push("Please enter planned release");
+		if (newData.amount === undefined) {
+			errorList.push("Please enter amount");
 		}
-		if (newData.model === undefined) {
-			errorList.push("Please enter model");
-		}
-		if (
-			newData.description === undefined
-			//validateEmail(newData.description) === false
-		) {
-			errorList.push("Please enter valid description");
+		if (newData.round === undefined) {
+			errorList.push("Please enter round");
 		}
 
 		if (errorList.length < 1) {
 			//no error
-			api.post("/apps", newData)
+			api.post("/fundings", newData)
 				.then((res) => {
 					let dataToAdd = [...data];
 					dataToAdd.push(newData);
@@ -191,7 +192,7 @@ function Table({ companies }) {
 	};
 
 	const handleRowDelete = (oldData, resolve) => {
-		api.delete("/apps/" + oldData._id)
+		api.delete("/fundings/" + oldData._id)
 			.then((res) => {
 				const dataDelete = [...data];
 				const index = oldData.tableData._id;
@@ -223,7 +224,7 @@ function Table({ companies }) {
 						)}
 					</div>
 					<MaterialTable
-						title="App Table"
+						title="Fundings Table"
 						columns={columns}
 						data={data}
 						icons={tableIcons}

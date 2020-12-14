@@ -74,13 +74,22 @@ function Table() {
 		{ title: "Company Name", field: "company_name" },
 		//{ title: "Companies", field: "companies" },
 		{ title: "Keywords", field: "keywords" },
-		{ title: "Total Funding", field: "total_funding" },
-		{ title: "Last Funding Date", field: "last_funding_date" },
-		{ title: "Last Funding Amount", field: "last_funding_amount" },
+		{ title: "Total Funding", field: "total_funding", type: "numeric" },
+		{
+			title: "Last Funding Date",
+			field: "last_funding_date",
+			type: "date",
+		},
+		{
+			title: "Last Funding Amount",
+			field: "last_funding_amount",
+			type: "numeric",
+		},
 		{
 			title: "Top Player",
 			field: "top_player",
-			lookup: { Yes: "Yes", No: "No" },
+			//lookup: { Yes: "Yes", No: "No" },
+			type: "boolean",
 		},
 	];
 	const [data, setData] = useState([]); //table data
