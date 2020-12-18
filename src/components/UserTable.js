@@ -22,6 +22,8 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import Alert from "@material-ui/lab/Alert";
 import api from "../api/api";
 
+import firebase from "./firebase";
+
 import "./table.css";
 
 const tableIcons = {
@@ -57,29 +59,20 @@ const tableIcons = {
 // 	return re.test(String(email).toLowerCase());
 // }
 
-function Table({ companies }) {
-	var lookup = {};
-	companies.forEach((company) => {
-		lookup[company.company_name] = company.company_name;
-	});
-
+function Table() {
 	var columns = [
-		//{ title: "id", field: "id", hidden: true },
-		// {
-		// 	title: "Avatar",
-		// 	render: (rowData) => (
-		// 		<Avatar
-		// 			maxInitials={1}
-		// 			size={40}
-		// 			round={true}
-		// 			name={rowData === undefined ? " " : rowData.first_name}
-		// 		/>
-		// 	),
-		// },
-		{ title: "Keyword", field: "keyword" },
-		{ title: "Search Engine", field: "search_engine" },
-		{ title: "Country", field: "country" },
-		{ title: "Count", field: "count", type: "numeric" },
+		{ title: "Name", field: "user_name" },
+		{ title: "Email", field: "user_email" },
+		{ title: "Password", field: "user_password" },
+		{
+			title: "Role",
+			field: "user_role",
+			lookup: {
+				Keyword_Analyst: "Keyword Analyst",
+				Market_Analyst: "Market Analyst",
+				Leads_Analyst: "Leads Analyst",
+			},
+		},
 	];
 	const [data, setData] = useState([]); //table data
 
@@ -88,7 +81,7 @@ function Table({ companies }) {
 	const [errorMessages, setErrorMessages] = useState([]);
 
 	useEffect(() => {
-		api.get("/keyword_count")
+		api.get("/users")
 			.then((res) => {
 				setData(res.data);
 			})
@@ -100,24 +93,21 @@ function Table({ companies }) {
 	const handleRowUpdate = (newData, oldData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.keyword === "") {
-			errorList.push("Please enter keyword");
+		if (newData.user_name === "") {
+			errorList.push("Please enter name");
 		}
-		if (newData.search_engine === "") {
-			errorList.push("Please enter search engine");
+		if (newData.user_email === "") {
+			errorList.push("Please enter email");
 		}
-		if (newData.count === "") {
-			errorList.push("Please enter count");
+		if (newData.user_password === "") {
+			errorList.push("Please enter password");
 		}
-		if (
-			newData.country === ""
-			//validateEmail(newData.country) === false
-		) {
-			errorList.push("Please enter valid country");
+		if (newData.user_role === "") {
+			errorList.push("Please enter role");
 		}
 
 		if (errorList.length < 1) {
-			api.patch("/keyword_count/" + newData._id, newData)
+			api.patch("/users/" + newData._id, newData)
 				.then((res) => {
 					const dataUpdate = [...data];
 					const index = oldData.tableData._id;
@@ -143,25 +133,38 @@ function Table({ companies }) {
 	const handleRowAdd = (newData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.keyword === undefined) {
-			errorList.push("Please enter keyword");
+		if (newData.user_name === undefined) {
+			errorList.push("Please enter name");
 		}
-		if (newData.search_engine === undefined) {
-			errorList.push("Please enter search engine");
+		if (newData.user_email === undefined) {
+			errorList.push("Please enter email");
 		}
-		if (newData.count === undefined) {
-			errorList.push("Please enter count");
+		if (newData.user_password === undefined) {
+			errorList.push("Please enter password");
 		}
-		if (
-			newData.country === undefined
-			//validateEmail(newData.country) === false
-		) {
-			errorList.push("Please enter valid country");
+		if (newData.user_role === undefined) {
+			errorList.push("Please enter role");
 		}
 
 		if (errorList.length < 1) {
+			const result = firebase.register(
+				newData.user_name,
+				newData.user_email,
+				newData.user_password,
+				newData.user_role,
+			);
+			result.then(function (res) {
+				console.log("result", res);
+				firebase.createProfile(
+					newData.user_name,
+					newData.user_email,
+					newData.user_password,
+					newData.user_role,
+					res.user.uid,
+				);
+			});
 			//no error
-			api.post("/keyword_count", newData)
+			api.post("/users", newData)
 				.then((res) => {
 					let dataToAdd = [...data];
 					dataToAdd.push(newData);
@@ -184,7 +187,7 @@ function Table({ companies }) {
 	};
 
 	const handleRowDelete = (oldData, resolve) => {
-		api.delete("/keyword_count/" + oldData._id)
+		api.delete("/users/" + oldData._id)
 			.then((res) => {
 				const dataDelete = [...data];
 				const index = oldData.tableData._id;
@@ -216,7 +219,7 @@ function Table({ companies }) {
 						)}
 					</div>
 					<MaterialTable
-						title="Keyword Count Table"
+						title="Users Table"
 						columns={columns}
 						data={data}
 						icons={tableIcons}

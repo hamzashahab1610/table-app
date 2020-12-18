@@ -16,13 +16,14 @@ const config = {
 
 class Firebase {
 	constructor() {
-		// if (typeof window !== "undefined") {
-		// 	if (!firebase.apps.length) {
-		app.initializeApp(config);
-		this.auth = app.auth();
-		this.db = app.firestore();
-		// 	}
-		// }
+		if (typeof window !== "undefined") {
+			// 	if (!firebase.apps.length) {
+			app.initializeApp(config);
+			this.auth = app.auth();
+			this.db = app.firestore();
+			this.createProfile = this.createProfile.bind(this);
+			// 	}
+		}
 	}
 
 	isInitialized() {
@@ -44,17 +45,30 @@ class Firebase {
 		return this.auth.signOut();
 	}
 
-	async register(name, email, password) {
-		await this.auth
+	createProfile = (user_name, user_email, user_password, user_role, uid) => {
+		return this.db
+			.collection("users")
+			.doc(uid)
+			.set({
+				user_name,
+				user_email,
+				user_password,
+				user_role,
+			})
+			.catch(console.error);
+	};
+
+	async register(name, email, password, role) {
+		var result = await this.auth
 			.createUserWithEmailAndPassword(email, password)
 			.then(function (result) {
-				console.log(result);
-				console.log("Success. User registered");
-				//navigate("/");
+				//console.log(result);
+				return result;
 			});
-		return this.auth.currentUser.updateProfile({
-			displayName: name,
-		});
+		return result;
+		// return this.auth.currentUser.updateProfile({
+		// 	displayName: name,
+		// });
 	}
 }
 

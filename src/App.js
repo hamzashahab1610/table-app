@@ -20,6 +20,7 @@ import AppTable from "./components/AppTable";
 import AdTable from "./components/AdTable";
 import VcTable from "./components/VcTable";
 import FundingTable from "./components/FundingTable";
+import UserTable from "./components/UserTable";
 
 import {
 	BrowserRouter as Router,
@@ -209,6 +210,15 @@ function App() {
 											Fundings
 										</Button>
 									</Link>
+									<Link
+										to="/users"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">Users</Button>
+									</Link>
 								</Grid>
 								<Grid item>
 									<Link
@@ -237,8 +247,8 @@ function App() {
 					<Route path="/signup">
 						<SignUp />
 					</Route>
-					<Route path="/markets">
-						<MarketTable companies={companies} />
+					<Route path="/users">
+						<UserTable />
 					</Route>
 					<Route path="/markets">
 						<MarketTable companies={companies} />
