@@ -22,8 +22,6 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import Alert from "@material-ui/lab/Alert";
 import api from "../api/api";
 
-import firebase from "./firebase";
-
 import "./table.css";
 
 const tableIcons = {
@@ -60,20 +58,11 @@ const tableIcons = {
 // }
 
 function Table() {
-	var uid;
 	var columns = [
-		{ title: "Name", field: "user_name" },
-		{ title: "Email", field: "user_email" },
-		{ title: "Password", field: "user_password" },
-		{
-			title: "Role",
-			field: "user_role",
-			lookup: {
-				Keyword_Analyst: "Keyword Analyst",
-				Market_Analyst: "Market Analyst",
-				Leads_Analyst: "Leads Analyst",
-			},
-		},
+		{ title: "Company", field: "company" },
+		{ title: "Product", field: "product" },
+		{ title: "Term", field: "term" },
+		{ title: "Explanation", field: "explanation" },
 	];
 	const [data, setData] = useState([]); //table data
 
@@ -82,7 +71,7 @@ function Table() {
 	const [errorMessages, setErrorMessages] = useState([]);
 
 	useEffect(() => {
-		api.get("/users")
+		api.get("/terms")
 			.then((res) => {
 				setData(res.data);
 			})
@@ -94,21 +83,21 @@ function Table() {
 	const handleRowUpdate = (newData, oldData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.user_name === "") {
-			errorList.push("Please enter name");
+		if (newData.company === "") {
+			errorList.push("Please enter company");
 		}
-		if (newData.user_email === "") {
-			errorList.push("Please enter email");
+		if (newData.product === "") {
+			errorList.push("Please enter product");
 		}
-		if (newData.user_password === "") {
-			errorList.push("Please enter password");
+		if (newData.term === "") {
+			errorList.push("Please enter term");
 		}
-		if (newData.user_role === "") {
-			errorList.push("Please enter role");
+		if (newData.explanation === "") {
+			errorList.push("Please enter explanation");
 		}
 
 		if (errorList.length < 1) {
-			api.patch("/users/" + newData._id, newData)
+			api.patch("/terms/" + newData._id, newData)
 				.then((res) => {
 					const dataUpdate = [...data];
 					const index = oldData.tableData._id;
@@ -134,44 +123,28 @@ function Table() {
 	const handleRowAdd = (newData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.user_name === undefined) {
-			errorList.push("Please enter name");
+		if (newData.company === undefined) {
+			errorList.push("Please enter company");
 		}
-		if (newData.user_email === undefined) {
-			errorList.push("Please enter email");
+		if (newData.product === undefined) {
+			errorList.push("Please enter product");
 		}
-		if (newData.user_password === undefined) {
-			errorList.push("Please enter password");
+		if (newData.term === undefined) {
+			errorList.push("Please enter term");
 		}
-		if (newData.user_role === undefined) {
-			errorList.push("Please enter role");
+		if (newData.explanation === undefined) {
+			errorList.push("Please enter explanation");
 		}
 
 		if (errorList.length < 1) {
-			const result = firebase.register(
-				newData.user_name,
-				newData.user_email,
-				newData.user_password,
-				newData.user_role,
-			);
-			result.then(function (res) {
-				console.log("result", res);
-				firebase.createProfile(
-					newData.user_name,
-					newData.user_email,
-					newData.user_password,
-					newData.user_role,
-					res.user.uid,
-				);
-			});
 			//no error
-			api.post("/users", newData)
+			api.post("/terms", newData)
 				.then((res) => {
 					let dataToAdd = [...data];
 					dataToAdd.push(newData);
 					setData(dataToAdd);
 					resolve();
-					//window.location.reload(false);
+					window.location.reload(false);
 					setErrorMessages([]);
 					setIserror(false);
 				})
@@ -188,7 +161,7 @@ function Table() {
 	};
 
 	const handleRowDelete = (oldData, resolve) => {
-		api.delete("/users/" + oldData._id)
+		api.delete("/terms/" + oldData._id)
 			.then((res) => {
 				const dataDelete = [...data];
 				const index = oldData.tableData._id;
@@ -220,15 +193,15 @@ function Table() {
 						)}
 					</div>
 					<MaterialTable
-						title="Users Table"
+						title="Term Table"
 						columns={columns}
 						data={data}
 						icons={tableIcons}
 						editable={{
-							// onRowUpdate: (newData, oldData) =>
-							// 	new Promise((resolve) => {
-							// 		handleRowUpdate(newData, oldData, resolve);
-							// 	}),
+							onRowUpdate: (newData, oldData) =>
+								new Promise((resolve) => {
+									handleRowUpdate(newData, oldData, resolve);
+								}),
 							onRowAdd: (newData) =>
 								new Promise((resolve) => {
 									handleRowAdd(newData, resolve);

@@ -22,8 +22,6 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import Alert from "@material-ui/lab/Alert";
 import api from "../api/api";
 
-import firebase from "./firebase";
-
 import "./table.css";
 
 const tableIcons = {
@@ -60,20 +58,16 @@ const tableIcons = {
 // }
 
 function Table() {
-	var uid;
 	var columns = [
-		{ title: "Name", field: "user_name" },
-		{ title: "Email", field: "user_email" },
-		{ title: "Password", field: "user_password" },
-		{
-			title: "Role",
-			field: "user_role",
-			lookup: {
-				Keyword_Analyst: "Keyword Analyst",
-				Market_Analyst: "Market Analyst",
-				Leads_Analyst: "Leads Analyst",
-			},
-		},
+		{ title: "Lead Name", field: "lead_name" },
+		{ title: "Title", field: "title" },
+		{ title: "Organization", field: "organization" },
+		{ title: "Org Type", field: "org_type" },
+		{ title: "Email", field: "email" },
+		{ title: "Phone", field: "phone" },
+		{ title: "URL", field: "url" },
+		{ title: "Last Contact", field: "last_contact", type: "date" },
+		{ title: "Notes", field: "notes" },
 	];
 	const [data, setData] = useState([]); //table data
 
@@ -82,7 +76,7 @@ function Table() {
 	const [errorMessages, setErrorMessages] = useState([]);
 
 	useEffect(() => {
-		api.get("/users")
+		api.get("/leads")
 			.then((res) => {
 				setData(res.data);
 			})
@@ -94,21 +88,36 @@ function Table() {
 	const handleRowUpdate = (newData, oldData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.user_name === "") {
-			errorList.push("Please enter name");
+		if (newData.lead_name === "") {
+			errorList.push("Please enter lead name");
 		}
-		if (newData.user_email === "") {
+		if (newData.title === "") {
+			errorList.push("Please enter title");
+		}
+		if (newData.organization === "") {
+			errorList.push("Please enter organization");
+		}
+		if (newData.org_type === "") {
+			errorList.push("Please enter org type");
+		}
+		if (newData.email === "") {
 			errorList.push("Please enter email");
 		}
-		if (newData.user_password === "") {
-			errorList.push("Please enter password");
+		if (newData.phone === "") {
+			errorList.push("Please enter phone");
 		}
-		if (newData.user_role === "") {
-			errorList.push("Please enter role");
+		if (newData.url === "") {
+			errorList.push("Please enter url");
+		}
+		if (newData.last_contact === "") {
+			errorList.push("Please enter last contact");
+		}
+		if (newData.notes === "") {
+			errorList.push("Please enter notes");
 		}
 
 		if (errorList.length < 1) {
-			api.patch("/users/" + newData._id, newData)
+			api.patch("/leads/" + newData._id, newData)
 				.then((res) => {
 					const dataUpdate = [...data];
 					const index = oldData.tableData._id;
@@ -134,44 +143,43 @@ function Table() {
 	const handleRowAdd = (newData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.user_name === undefined) {
-			errorList.push("Please enter name");
+		if (newData.lead_name === undefined) {
+			errorList.push("Please enter lead name");
 		}
-		if (newData.user_email === undefined) {
+		if (newData.title === undefined) {
+			errorList.push("Please enter title");
+		}
+		if (newData.organization === undefined) {
+			errorList.push("Please enter organization");
+		}
+		if (newData.org_type === undefined) {
+			errorList.push("Please enter org type");
+		}
+		if (newData.email === undefined) {
 			errorList.push("Please enter email");
 		}
-		if (newData.user_password === undefined) {
-			errorList.push("Please enter password");
+		if (newData.phone === undefined) {
+			errorList.push("Please enter phone");
 		}
-		if (newData.user_role === undefined) {
-			errorList.push("Please enter role");
+		if (newData.url === undefined) {
+			errorList.push("Please enter url");
+		}
+		if (newData.last_contact === undefined) {
+			errorList.push("Please enter last contact");
+		}
+		if (newData.notes === undefined) {
+			errorList.push("Please enter notes");
 		}
 
 		if (errorList.length < 1) {
-			const result = firebase.register(
-				newData.user_name,
-				newData.user_email,
-				newData.user_password,
-				newData.user_role,
-			);
-			result.then(function (res) {
-				console.log("result", res);
-				firebase.createProfile(
-					newData.user_name,
-					newData.user_email,
-					newData.user_password,
-					newData.user_role,
-					res.user.uid,
-				);
-			});
 			//no error
-			api.post("/users", newData)
+			api.post("/leads", newData)
 				.then((res) => {
 					let dataToAdd = [...data];
 					dataToAdd.push(newData);
 					setData(dataToAdd);
 					resolve();
-					//window.location.reload(false);
+					window.location.reload(false);
 					setErrorMessages([]);
 					setIserror(false);
 				})
@@ -188,7 +196,7 @@ function Table() {
 	};
 
 	const handleRowDelete = (oldData, resolve) => {
-		api.delete("/users/" + oldData._id)
+		api.delete("/leads/" + oldData._id)
 			.then((res) => {
 				const dataDelete = [...data];
 				const index = oldData.tableData._id;
@@ -220,15 +228,15 @@ function Table() {
 						)}
 					</div>
 					<MaterialTable
-						title="Users Table"
+						title="Lead Table"
 						columns={columns}
 						data={data}
 						icons={tableIcons}
 						editable={{
-							// onRowUpdate: (newData, oldData) =>
-							// 	new Promise((resolve) => {
-							// 		handleRowUpdate(newData, oldData, resolve);
-							// 	}),
+							onRowUpdate: (newData, oldData) =>
+								new Promise((resolve) => {
+									handleRowUpdate(newData, oldData, resolve);
+								}),
 							onRowAdd: (newData) =>
 								new Promise((resolve) => {
 									handleRowAdd(newData, resolve);

@@ -21,6 +21,16 @@ import AdTable from "./components/AdTable";
 import VcTable from "./components/VcTable";
 import FundingTable from "./components/FundingTable";
 import UserTable from "./components/UserTable";
+import NeuralProjectTable from "./components/NeuralProjectTable";
+import LeadTable from "./components/LeadTable";
+import SupplierTable from "./components/SupplierTable";
+import PricingTable from "./components/PricingTable";
+import FeatureTable from "./components/FeatureTable";
+import QuestionTable from "./components/QuestionTable";
+import TermTable from "./components/TermTable";
+import ToolTable from "./components/ToolTable";
+import NameIdeaTable from "./components/NameIdeaTable";
+import JobTable from "./components/JobTable";
 
 import {
 	BrowserRouter as Router,
@@ -54,7 +64,9 @@ function App() {
 	const [companies, setCompanies] = useState([]);
 	const classes = useStyles();
 	const location = useLocation();
+	const [user, setUser] = useState();
 	const [firebaseInitialized, setfirebaseInitialized] = useState();
+	var result;
 
 	useEffect(() => {
 		api.get("/companies")
@@ -77,6 +89,17 @@ function App() {
 	});
 
 	useEffect(() => {
+		if (firebaseInitialized && firebaseInitialized !== false) {
+			result = firebase.findUser(firebaseInitialized.email);
+			result.then(function (res) {
+				setUser(res);
+			});
+		}
+	}, [firebaseInitialized]);
+
+	console.log(user);
+
+	useEffect(() => {
 		if (firebaseInitialized === false) {
 			history.push("/signin");
 		}
@@ -87,14 +110,203 @@ function App() {
 		firebase.logout();
 	};
 
-	console.log("firebaseInitialized", firebaseInitialized);
-
 	return (
 		<div className="App">
 			<div>
 				{location &&
 				location.pathname !== "/signin" &&
-				location.pathname !== "/signup" ? (
+				location.pathname !== "/signup" &&
+				user !== undefined &&
+				user.user_role === "Keyword_Analyst" ? (
+					<AppBar position="static">
+						<Toolbar>
+							<Grid
+								justify="space-between"
+								alignItems="center"
+								container
+								spacing={24}
+							>
+								<Grid item>
+									<IconButton
+										edge="start"
+										className={classes.menuButton}
+										color="inherit"
+										aria-label="menu"
+									>
+										<MenuIcon />
+									</IconButton>
+									<Link
+										to="/"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Companies
+										</Button>
+									</Link>
+									<Link
+										to="/ads"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">Ads</Button>
+									</Link>
+									<Link
+										to="/keywords"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Keywords
+										</Button>
+									</Link>
+									<Link
+										to="/keyword_count"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Keyword Count
+										</Button>
+									</Link>
+								</Grid>
+								<Grid item>
+									<Link
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button
+											onClick={handleLogout}
+											color="inherit"
+										>
+											Log Out
+										</Button>
+									</Link>
+								</Grid>
+							</Grid>
+						</Toolbar>
+					</AppBar>
+				) : user !== undefined &&
+				  user.user_role === "Market_Analyst" ? (
+					<AppBar position="static">
+						<Toolbar>
+							<Grid
+								justify="space-between"
+								alignItems="center"
+								container
+								spacing={24}
+							>
+								<Grid item>
+									<IconButton
+										edge="start"
+										className={classes.menuButton}
+										color="inherit"
+										aria-label="menu"
+									>
+										<MenuIcon />
+									</IconButton>
+									<Link
+										to="/"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Companies
+										</Button>
+									</Link>
+									<Link
+										to="/markets"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">Markets</Button>
+									</Link>
+									<Link
+										to="/keywords"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Keywords
+										</Button>
+									</Link>
+									<Link
+										to="/keyword_count"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Keyword Count
+										</Button>
+									</Link>
+
+									<Link
+										to="/ads"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">Ads</Button>
+									</Link>
+									<Link
+										to="/vcs"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">VCs</Button>
+									</Link>
+									<Link
+										to="/fundings"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Fundings
+										</Button>
+									</Link>
+								</Grid>
+								<Grid item>
+									<Link
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button
+											onClick={handleLogout}
+											color="inherit"
+										>
+											Log Out
+										</Button>
+									</Link>
+								</Grid>
+							</Grid>
+						</Toolbar>
+					</AppBar>
+				) : (
 					<AppBar position="static">
 						<Toolbar>
 							<Grid
@@ -219,6 +431,106 @@ function App() {
 									>
 										<Button color="inherit">Users</Button>
 									</Link>
+									<Link
+										to="/neural_projects"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Neural Projects
+										</Button>
+									</Link>
+									<Link
+										to="/leads"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">Leads</Button>
+									</Link>
+									<Link
+										to="/suppliers"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Suppliers
+										</Button>
+									</Link>
+									<Link
+										to="/pricing"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">Pricing</Button>
+									</Link>
+									<Link
+										to="/feature"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Features
+										</Button>
+									</Link>
+									<Link
+										to="/questions"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Questions
+										</Button>
+									</Link>
+									<Link
+										to="/terms"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">Terms</Button>
+									</Link>
+									<Link
+										to="/tools"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">Tools</Button>
+									</Link>
+									<Link
+										to="/name_ideas"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Name Ideas
+										</Button>
+									</Link>
+									<Link
+										to="/jobs"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">Jobs</Button>
+									</Link>
 								</Grid>
 								<Grid item>
 									<Link
@@ -238,7 +550,7 @@ function App() {
 							</Grid>
 						</Toolbar>
 					</AppBar>
-				) : null}
+				)}
 
 				<Switch>
 					<Route path="/signin">
@@ -276,6 +588,36 @@ function App() {
 					</Route>
 					<Route path="/keyword_count">
 						<KeywordCountTable companies={companies} />
+					</Route>
+					<Route path="/neural_projects">
+						<NeuralProjectTable />
+					</Route>
+					<Route path="/suppliers">
+						<SupplierTable />
+					</Route>
+					<Route path="/leads">
+						<LeadTable />
+					</Route>
+					<Route path="/pricing">
+						<PricingTable />
+					</Route>
+					<Route path="/name_idea">
+						<NameIdeaTable />
+					</Route>
+					<Route path="/jobs">
+						<JobTable />
+					</Route>
+					<Route path="/features">
+						<FeatureTable />
+					</Route>
+					<Route path="/questions">
+						<QuestionTable />
+					</Route>
+					<Route path="/terms">
+						<TermTable />
+					</Route>
+					<Route path="/tools">
+						<ToolTable />
 					</Route>
 					<Route path="/">
 						<CompanyTable />

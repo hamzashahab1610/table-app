@@ -3,7 +3,6 @@ import app from "firebase/app";
 import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firebase-firestore";
-import { Redirect } from "react-router-dom";
 
 const config = {
 	apiKey: "AIzaSyD4XmQJ-ktvr5HbwtX5_rIGzVGQLWYpLSY",
@@ -20,6 +19,7 @@ class Firebase {
 			// 	if (!firebase.apps.length) {
 			app.initializeApp(config);
 			this.auth = app.auth();
+
 			this.db = app.firestore();
 			this.createProfile = this.createProfile.bind(this);
 			// 	}
@@ -57,6 +57,34 @@ class Firebase {
 			})
 			.catch(console.error);
 	};
+
+	deleteProfile = (uid) => {
+		this.db
+			.collection("users")
+			.doc(uid)
+			.delete()
+			.then(function () {
+				console.log("Document successfully deleted!");
+			})
+			.catch(function (error) {
+				console.error("Error removing document: ", error);
+			});
+	};
+
+	async findUser(email) {
+		var collection = this.db.collection("users");
+
+		const result = await collection.where("user_email", "==", email).get();
+		if (result.empty) {
+			console.log("No matching documents.");
+			return;
+		}
+		//console.log("result", result.docs[0].id);
+		return result.docs[0].data();
+		// result.forEach((doc) => {
+		// 	console.log(doc.id, "=>", doc.data());
+		// });
+	}
 
 	async register(name, email, password, role) {
 		var result = await this.auth
