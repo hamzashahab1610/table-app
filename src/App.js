@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
+import Grid from "@material-ui/core/Grid";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -20,8 +21,20 @@ import AdTable from "./components/AdTable";
 import VcTable from "./components/VcTable";
 import FundingTable from "./components/FundingTable";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Link,
+	useLocation,
+	useHistory,
+} from "react-router-dom";
+
 import api from "./api/api";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
+
+import firebase from "./components/firebase";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -36,8 +49,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
+	const history = useHistory();
 	const [companies, setCompanies] = useState([]);
 	const classes = useStyles();
+	const location = useLocation();
+	const [firebaseInitialized, setfirebaseInitialized] = useState();
 
 	useEffect(() => {
 		api.get("/companies")
@@ -49,147 +65,213 @@ function App() {
 			});
 	}, []);
 
+	useEffect(() => {
+		firebase.isInitialized().then((val) => {
+			if (val) {
+				setfirebaseInitialized(val);
+			} else {
+				setfirebaseInitialized(false);
+			}
+		});
+	});
+
+	useEffect(() => {
+		if (firebaseInitialized === false) {
+			history.push("/signin");
+		}
+	}, []);
+
+	const handleLogout = () => {
+		history.push("/signin");
+		firebase.logout();
+	};
+
+	console.log("firebaseInitialized", firebaseInitialized);
+
 	return (
 		<div className="App">
-			<Router>
-				<div>
+			<div>
+				{location &&
+				location.pathname !== "/signin" &&
+				location.pathname !== "/signup" ? (
 					<AppBar position="static">
 						<Toolbar>
-							<IconButton
-								edge="start"
-								className={classes.menuButton}
-								color="inherit"
-								aria-label="menu"
+							<Grid
+								justify="space-between"
+								alignItems="center"
+								container
+								spacing={24}
 							>
-								<MenuIcon />
-							</IconButton>
-							<Link
-								to="/"
-								style={{
-									textDecoration: "none",
-									color: "white",
-								}}
-							>
-								<Button color="inherit">Companies</Button>
-							</Link>
-							<Link
-								to="/markets"
-								style={{
-									textDecoration: "none",
-									color: "white",
-								}}
-							>
-								<Button color="inherit">Markets</Button>
-							</Link>
-							<Link
-								to="/keywords"
-								style={{
-									textDecoration: "none",
-									color: "white",
-								}}
-							>
-								<Button color="inherit">Keywords</Button>
-							</Link>
-							<Link
-								to="/keyword_count"
-								style={{
-									textDecoration: "none",
-									color: "white",
-								}}
-							>
-								<Button color="inherit">Keyword Count</Button>
-							</Link>
-							<Link
-								to="/apps"
-								style={{
-									textDecoration: "none",
-									color: "white",
-								}}
-							>
-								<Button color="inherit">Apps</Button>
-							</Link>
-							<Link
-								to="/models"
-								style={{
-									textDecoration: "none",
-									color: "white",
-								}}
-							>
-								<Button color="inherit">Models</Button>
-							</Link>
-							<Link
-								to="/shells"
-								style={{
-									textDecoration: "none",
-									color: "white",
-								}}
-							>
-								<Button color="inherit">Shells</Button>
-							</Link>
-							<Link
-								to="/ads"
-								style={{
-									textDecoration: "none",
-									color: "white",
-								}}
-							>
-								<Button color="inherit">Ads</Button>
-							</Link>
-							<Link
-								to="/vcs"
-								style={{
-									textDecoration: "none",
-									color: "white",
-								}}
-							>
-								<Button color="inherit">VCs</Button>
-							</Link>
-							<Link
-								to="/fundings"
-								style={{
-									textDecoration: "none",
-									color: "white",
-								}}
-							>
-								<Button color="inherit">Fundings</Button>
-							</Link>
+								<Grid item>
+									<IconButton
+										edge="start"
+										className={classes.menuButton}
+										color="inherit"
+										aria-label="menu"
+									>
+										<MenuIcon />
+									</IconButton>
+									<Link
+										to="/"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Companies
+										</Button>
+									</Link>
+									<Link
+										to="/markets"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">Markets</Button>
+									</Link>
+									<Link
+										to="/keywords"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Keywords
+										</Button>
+									</Link>
+									<Link
+										to="/keyword_count"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Keyword Count
+										</Button>
+									</Link>
+									<Link
+										to="/apps"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">Apps</Button>
+									</Link>
+									<Link
+										to="/models"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">Models</Button>
+									</Link>
+									<Link
+										to="/shells"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">Shells</Button>
+									</Link>
+									<Link
+										to="/ads"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">Ads</Button>
+									</Link>
+									<Link
+										to="/vcs"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">VCs</Button>
+									</Link>
+									<Link
+										to="/fundings"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button color="inherit">
+											Fundings
+										</Button>
+									</Link>
+								</Grid>
+								<Grid item>
+									<Link
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button
+											onClick={handleLogout}
+											color="inherit"
+										>
+											Log Out
+										</Button>
+									</Link>
+								</Grid>
+							</Grid>
 						</Toolbar>
 					</AppBar>
+				) : null}
 
-					<Switch>
-						<Route path="/markets">
-							<MarketTable companies={companies} />
-						</Route>
-						<Route path="/keywords">
-							<KeywordTable companies={companies} />
-						</Route>
-						<Route path="/apps">
-							<AppTable companies={companies} />
-						</Route>
-						<Route path="/shells">
-							<ShellTable companies={companies} />
-						</Route>
-						<Route path="/models">
-							<ModelTable companies={companies} />
-						</Route>
-						<Route path="/ads">
-							<AdTable companies={companies} />
-						</Route>
-						<Route path="/vcs">
-							<VcTable companies={companies} />
-						</Route>
-						<Route path="/fundings">
-							<FundingTable companies={companies} />
-						</Route>
-						<Route path="/keyword_count">
-							<KeywordCountTable companies={companies} />
-						</Route>
-						<Route path="/">
-							<CompanyTable />
-						</Route>
-					</Switch>
-				</div>
-			</Router>
+				<Switch>
+					<Route path="/signin">
+						<SignIn />
+					</Route>
+					<Route path="/signup">
+						<SignUp />
+					</Route>
+					<Route path="/markets">
+						<MarketTable companies={companies} />
+					</Route>
+					<Route path="/markets">
+						<MarketTable companies={companies} />
+					</Route>
+					<Route path="/keywords">
+						<KeywordTable companies={companies} />
+					</Route>
+					<Route path="/apps">
+						<AppTable companies={companies} />
+					</Route>
+					<Route path="/shells">
+						<ShellTable companies={companies} />
+					</Route>
+					<Route path="/models">
+						<ModelTable companies={companies} />
+					</Route>
+					<Route path="/ads">
+						<AdTable companies={companies} />
+					</Route>
+					<Route path="/vcs">
+						<VcTable companies={companies} />
+					</Route>
+					<Route path="/fundings">
+						<FundingTable companies={companies} />
+					</Route>
+					<Route path="/keyword_count">
+						<KeywordCountTable companies={companies} />
+					</Route>
+					<Route path="/">
+						<CompanyTable />
+					</Route>
+				</Switch>
+			</div>
 		</div>
 	);
 }
