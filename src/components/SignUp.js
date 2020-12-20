@@ -57,13 +57,29 @@ export default function SignUp() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			await firebase.register(name, email, password).then(() => {
+		// try {
+		const result = firebase.register(name, email, password);
+		result
+			.then(function (res) {
+				console.log("result", res);
+				firebase.createProfile(
+					name,
+					email,
+					password,
+					"owner",
+					res.user.uid,
+				);
+			})
+			.then(function (res) {
 				history.push("/");
+			})
+			.catch((error) => {
+				alert(error.message);
 			});
-		} catch (error) {
-			alert(error.message);
-		}
+		// } catch (error) {
+		// 	alert(error.message);
+		// 	setMessage(error.message);
+		// }
 	};
 
 	return (

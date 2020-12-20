@@ -59,51 +59,22 @@ const tableIcons = {
 
 function Table() {
 	var columns = [
-		//{ title: "id", field: "id", hidden: true },
-		// {
-		// 	title: "Avatar",
-		// 	render: (rowData) => (
-		// 		<Avatar
-		// 			maxInitials={1}
-		// 			size={40}
-		// 			round={true}
-		// 			name={rowData === undefined ? " " : rowData.first_name}
-		// 		/>
-		// 	),
-		// },
-		{ title: "Company Name", field: "company_name" },
-		//{ title: "Companies", field: "companies" },
-		{ title: "Keywords", field: "keywords" },
-		{ title: "Total Funding", field: "total_funding", type: "numeric" },
-		{
-			title: "Last Funding Date",
-			field: "last_funding_date",
-			type: "date",
-		},
-		{
-			title: "Last Funding Amount",
-			field: "last_funding_amount",
-			type: "numeric",
-		},
-		{
-			title: "Top Player",
-			field: "top_player",
-			//lookup: { Yes: "Yes", No: "No" },
-			type: "boolean",
-		},
-		{ title: "Tagline Text Block", field: "tagline_text_block" },
-		{ title: "Revenue", field: "revenue", type: "numeric" },
+		{ title: "Company", field: "company" },
+		{ title: "Product", field: "product" },
+		{ title: "Add-on Name", field: "adon_name" },
+		{ title: "Add-on Company", field: "adon_company" },
+		{ title: "Add-on URL", field: "adon_url" },
+		{ title: "Cost", field: "cost", type: "numeric" },
+		{ title: "Notes", field: "notes" },
 	];
 	const [data, setData] = useState([]); //table data
-
-	console.log("data", data);
 
 	//for error handling
 	const [iserror, setIserror] = useState(false);
 	const [errorMessages, setErrorMessages] = useState([]);
 
 	useEffect(() => {
-		api.get("/companies")
+		api.get("/adons")
 			.then((res) => {
 				setData(res.data);
 			})
@@ -115,30 +86,30 @@ function Table() {
 	const handleRowUpdate = (newData, oldData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.company_name === "") {
-			errorList.push("Please enter company name");
+		if (newData.company === "") {
+			errorList.push("Please enter company");
 		}
-		if (newData.total_funding === "") {
-			errorList.push("Please enter total fundings");
+		if (newData.product === "") {
+			errorList.push("Please enter product");
 		}
-		if (newData.last_funding_date === "") {
-			errorList.push("Please enter last funding date");
+		if (newData.adon_name === "") {
+			errorList.push("Please enter adon_name");
 		}
-		if (newData.last_funding_amount === "") {
-			errorList.push("Please enter last funding amount");
+		if (newData.adon_company === "") {
+			errorList.push("Please enter adon_company");
 		}
-		if (newData.top_player === "") {
-			errorList.push("Please enter top player");
+		if (newData.adon_url === "") {
+			errorList.push("Please enter adon_url");
 		}
-		if (
-			newData.keywords === ""
-			//validateEmail(newData.keywords) === false
-		) {
-			errorList.push("Please enter valid keywords");
+		if (newData.cost === "") {
+			errorList.push("Please enter cost");
+		}
+		if (newData.notes === "") {
+			errorList.push("Please enter notes");
 		}
 
 		if (errorList.length < 1) {
-			api.patch("/companies/" + newData._id, newData)
+			api.patch("/adons/" + newData._id, newData)
 				.then((res) => {
 					const dataUpdate = [...data];
 					const index = oldData.tableData._id;
@@ -164,31 +135,30 @@ function Table() {
 	const handleRowAdd = (newData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.company_name === undefined) {
-			errorList.push("Please enter company name");
+		if (newData.company === undefined) {
+			errorList.push("Please enter company");
 		}
-		if (newData.total_funding === undefined) {
-			errorList.push("Please enter total fundings");
+		if (newData.product === undefined) {
+			errorList.push("Please enter product");
 		}
-		if (newData.last_funding_date === undefined) {
-			errorList.push("Please enter last funding date");
+		if (newData.adon_name === undefined) {
+			errorList.push("Please enter adon_name");
 		}
-		if (newData.last_funding_amount === undefined) {
-			errorList.push("Please enter last funding amount");
+		if (newData.adon_company === undefined) {
+			errorList.push("Please enter adon_company");
 		}
-		if (newData.top_player === undefined) {
-			errorList.push("Please enter top player");
+		if (newData.adon_url === undefined) {
+			errorList.push("Please enter adon_url");
 		}
-		if (
-			newData.keywords === undefined
-			//validateEmail(newData.keywords) === false
-		) {
-			errorList.push("Please enter valid keywords");
+		if (newData.cost === undefined) {
+			errorList.push("Please enter cost");
 		}
-
+		if (newData.notes === undefined) {
+			errorList.push("Please enter notes");
+		}
 		if (errorList.length < 1) {
 			//no error
-			api.post("/companies", newData)
+			api.post("/adons", newData)
 				.then((res) => {
 					let dataToAdd = [...data];
 					dataToAdd.push(newData);
@@ -211,7 +181,7 @@ function Table() {
 	};
 
 	const handleRowDelete = (oldData, resolve) => {
-		api.delete("/companies/" + oldData._id)
+		api.delete("/adons/" + oldData._id)
 			.then((res) => {
 				const dataDelete = [...data];
 				const index = oldData.tableData._id;
@@ -243,7 +213,7 @@ function Table() {
 						)}
 					</div>
 					<MaterialTable
-						title="Company Table"
+						title="Adon Table"
 						columns={columns}
 						data={data}
 						icons={tableIcons}

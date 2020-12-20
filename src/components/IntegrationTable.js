@@ -59,51 +59,19 @@ const tableIcons = {
 
 function Table() {
 	var columns = [
-		//{ title: "id", field: "id", hidden: true },
-		// {
-		// 	title: "Avatar",
-		// 	render: (rowData) => (
-		// 		<Avatar
-		// 			maxInitials={1}
-		// 			size={40}
-		// 			round={true}
-		// 			name={rowData === undefined ? " " : rowData.first_name}
-		// 		/>
-		// 	),
-		// },
-		{ title: "Company Name", field: "company_name" },
-		//{ title: "Companies", field: "companies" },
-		{ title: "Keywords", field: "keywords" },
-		{ title: "Total Funding", field: "total_funding", type: "numeric" },
-		{
-			title: "Last Funding Date",
-			field: "last_funding_date",
-			type: "date",
-		},
-		{
-			title: "Last Funding Amount",
-			field: "last_funding_amount",
-			type: "numeric",
-		},
-		{
-			title: "Top Player",
-			field: "top_player",
-			//lookup: { Yes: "Yes", No: "No" },
-			type: "boolean",
-		},
-		{ title: "Tagline Text Block", field: "tagline_text_block" },
-		{ title: "Revenue", field: "revenue", type: "numeric" },
+		{ title: "Company", field: "company" },
+		{ title: "Product", field: "product" },
+		{ title: "Integration", field: "integration" },
+		{ title: "Integration URL", field: "integration_url" },
 	];
 	const [data, setData] = useState([]); //table data
-
-	console.log("data", data);
 
 	//for error handling
 	const [iserror, setIserror] = useState(false);
 	const [errorMessages, setErrorMessages] = useState([]);
 
 	useEffect(() => {
-		api.get("/companies")
+		api.get("/integrations")
 			.then((res) => {
 				setData(res.data);
 			})
@@ -115,30 +83,21 @@ function Table() {
 	const handleRowUpdate = (newData, oldData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.company_name === "") {
-			errorList.push("Please enter company name");
+		if (newData.company === "") {
+			errorList.push("Please enter company");
 		}
-		if (newData.total_funding === "") {
-			errorList.push("Please enter total fundings");
+		if (newData.product === "") {
+			errorList.push("Please enter product");
 		}
-		if (newData.last_funding_date === "") {
-			errorList.push("Please enter last funding date");
+		if (newData.integration === "") {
+			errorList.push("Please enter integration");
 		}
-		if (newData.last_funding_amount === "") {
-			errorList.push("Please enter last funding amount");
-		}
-		if (newData.top_player === "") {
-			errorList.push("Please enter top player");
-		}
-		if (
-			newData.keywords === ""
-			//validateEmail(newData.keywords) === false
-		) {
-			errorList.push("Please enter valid keywords");
+		if (newData.integration_url === "") {
+			errorList.push("Please enter integration_url");
 		}
 
 		if (errorList.length < 1) {
-			api.patch("/companies/" + newData._id, newData)
+			api.patch("/integrations/" + newData._id, newData)
 				.then((res) => {
 					const dataUpdate = [...data];
 					const index = oldData.tableData._id;
@@ -164,31 +123,21 @@ function Table() {
 	const handleRowAdd = (newData, resolve) => {
 		//validation
 		let errorList = [];
-		if (newData.company_name === undefined) {
-			errorList.push("Please enter company name");
+		if (newData.company === undefined) {
+			errorList.push("Please enter company");
 		}
-		if (newData.total_funding === undefined) {
-			errorList.push("Please enter total fundings");
+		if (newData.product === undefined) {
+			errorList.push("Please enter product");
 		}
-		if (newData.last_funding_date === undefined) {
-			errorList.push("Please enter last funding date");
+		if (newData.integration === undefined) {
+			errorList.push("Please enter integration");
 		}
-		if (newData.last_funding_amount === undefined) {
-			errorList.push("Please enter last funding amount");
+		if (newData.integration_url === undefined) {
+			errorList.push("Please enter integration_url");
 		}
-		if (newData.top_player === undefined) {
-			errorList.push("Please enter top player");
-		}
-		if (
-			newData.keywords === undefined
-			//validateEmail(newData.keywords) === false
-		) {
-			errorList.push("Please enter valid keywords");
-		}
-
 		if (errorList.length < 1) {
 			//no error
-			api.post("/companies", newData)
+			api.post("/integrations", newData)
 				.then((res) => {
 					let dataToAdd = [...data];
 					dataToAdd.push(newData);
@@ -211,7 +160,7 @@ function Table() {
 	};
 
 	const handleRowDelete = (oldData, resolve) => {
-		api.delete("/companies/" + oldData._id)
+		api.delete("/integrations/" + oldData._id)
 			.then((res) => {
 				const dataDelete = [...data];
 				const index = oldData.tableData._id;
@@ -243,7 +192,7 @@ function Table() {
 						)}
 					</div>
 					<MaterialTable
-						title="Company Table"
+						title="Integration Table"
 						columns={columns}
 						data={data}
 						icons={tableIcons}

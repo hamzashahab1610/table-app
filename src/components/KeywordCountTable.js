@@ -57,35 +57,30 @@ const tableIcons = {
 // 	return re.test(String(email).toLowerCase());
 // }
 
-function Table({ companies }) {
-	var lookup = {};
-	companies.forEach((company) => {
-		lookup[company.company_name] = company.company_name;
-	});
-
+function Table({ user }) {
+	console.log("user", user);
 	var columns = [
-		//{ title: "id", field: "id", hidden: true },
-		// {
-		// 	title: "Avatar",
-		// 	render: (rowData) => (
-		// 		<Avatar
-		// 			maxInitials={1}
-		// 			size={40}
-		// 			round={true}
-		// 			name={rowData === undefined ? " " : rowData.first_name}
-		// 		/>
-		// 	),
-		// },
 		{ title: "Keyword", field: "keyword" },
 		{ title: "Search Engine", field: "search_engine" },
 		{ title: "Country", field: "country" },
 		{ title: "Count", field: "count", type: "numeric" },
 	];
 	const [data, setData] = useState([]); //table data
+	const [countTotal, setCountTotal] = useState();
 
 	//for error handling
 	const [iserror, setIserror] = useState(false);
 	const [errorMessages, setErrorMessages] = useState([]);
+
+	useEffect(() => {
+		var x = 0;
+		if (data.length > 0) {
+			data.forEach((item) => {
+				x = x + parseInt(item.count);
+			});
+			setCountTotal(x);
+		}
+	}, [data]);
 
 	useEffect(() => {
 		api.get("/keyword_count")
@@ -215,6 +210,19 @@ function Table({ companies }) {
 							</Alert>
 						)}
 					</div>
+					{user &&
+						(user.user_role === "Market_Analyst" ||
+							user.user_role === "owner") && (
+							<div
+								style={{
+									textAlign: "end",
+									marginBottom: "1rem",
+								}}
+							>
+								Count Total: {countTotal}
+							</div>
+						)}
+
 					<MaterialTable
 						title="Keyword Count Table"
 						columns={columns}
