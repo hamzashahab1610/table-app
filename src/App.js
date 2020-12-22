@@ -34,6 +34,8 @@ import JobTable from "./components/JobTable";
 import IntegrationTable from "./components/IntegrationTable";
 import AdonTable from "./components/AdonTable";
 import NewsTable from "./components/NewsTable";
+import ImageTable from "./components/ImageTable";
+import FileTable from "./components/FileTable";
 
 import {
 	BrowserRouter as Router,
@@ -201,7 +203,10 @@ function App() {
 							</Grid>
 						</Toolbar>
 					</AppBar>
-				) : user !== undefined &&
+				) : location &&
+				  location.pathname !== "/signin" &&
+				  location.pathname !== "/signup" &&
+				  user !== undefined &&
 				  user.user_role === "Market_Analyst" ? (
 					<AppBar position="static">
 						<Toolbar>
@@ -333,7 +338,11 @@ function App() {
 							</Grid>
 						</Toolbar>
 					</AppBar>
-				) : user !== undefined && user.user_role === "Leads_Analyst" ? (
+				) : location &&
+				  location.pathname !== "/signin" &&
+				  location.pathname !== "/signup" &&
+				  user !== undefined &&
+				  user.user_role === "Leads_Analyst" ? (
 					<AppBar position="static">
 						<Toolbar>
 							<Grid
@@ -380,22 +389,25 @@ function App() {
 						</Toolbar>
 					</AppBar>
 				) : (
-					<AppBar position="static">
-						<Toolbar>
-							<div
-								style={{
-									display: "flex",
-									alignItems: "center",
-								}}
-							>
-								<Grid
-									justify="space-between"
-									alignItems="center"
-									container
-									spacing={0}
+					location &&
+					location.pathname !== "/signin" &&
+					location.pathname !== "/signup" && (
+						<AppBar position="static">
+							<Toolbar>
+								<div
+									style={{
+										display: "flex",
+										alignItems: "center",
+									}}
 								>
-									<Grid item>
-										{/* <IconButton
+									<Grid
+										justify="space-between"
+										alignItems="center"
+										container
+										spacing={0}
+									>
+										<Grid item>
+											{/* <IconButton
 										edge="start"
 										className={classes.menuButton}
 										color="inherit"
@@ -403,293 +415,318 @@ function App() {
 									>
 										<MenuIcon />
 									</IconButton> */}
+											<Link
+												to="/companies"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button
+													color="inherit"
+													className="item"
+												>
+													Companies
+												</Button>
+											</Link>
+											<Link
+												to="/markets"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Markets
+												</Button>
+											</Link>
+											<Link
+												to="/keywords"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Keywords
+												</Button>
+											</Link>
+											<Link
+												to="/keyword_count"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Keyword Count
+												</Button>
+											</Link>
+											<Link
+												to="/apps"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Apps
+												</Button>
+											</Link>
+											<Link
+												to="/models"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Models
+												</Button>
+											</Link>
+											<Link
+												to="/shells"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Shells
+												</Button>
+											</Link>
+											<Link
+												to="/ads"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Display Ads
+												</Button>
+											</Link>
+											<Link
+												to="/vcs"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													VCs
+												</Button>
+											</Link>
+											<Link
+												to="/fundings"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Fundings
+												</Button>
+											</Link>
+											<Link
+												to="/users"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Users
+												</Button>
+											</Link>
+											<Link
+												to="/neural_projects"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Neural Projects
+												</Button>
+											</Link>
+										</Grid>
+										<Grid item>
+											<Link
+												to="/leads"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Leads
+												</Button>
+											</Link>
+											<Link
+												to="/suppliers"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Suppliers
+												</Button>
+											</Link>
+											<Link
+												to="/pricing"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Pricing
+												</Button>
+											</Link>
+											<Link
+												to="/feature"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Features
+												</Button>
+											</Link>
+											<Link
+												to="/questions"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Questions
+												</Button>
+											</Link>
+											<Link
+												to="/terms"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Terms
+												</Button>
+											</Link>
+											<Link
+												to="/tools"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Tools
+												</Button>
+											</Link>
+											<Link
+												to="/name_ideas"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Name Ideas
+												</Button>
+											</Link>
+											<Link
+												to="/jobs"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Jobs
+												</Button>
+											</Link>
+											<Link
+												to="/integrations"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Integrations
+												</Button>
+											</Link>{" "}
+											<Link
+												to="/adons"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Ad-Ons
+												</Button>
+											</Link>
+											<Link
+												to="/new"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													News
+												</Button>
+											</Link>
+											<Link
+												to="/images"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Images
+												</Button>
+											</Link>
+											<Link
+												to="/files"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Files
+												</Button>
+											</Link>
+										</Grid>
+									</Grid>
+									<Grid>
 										<Link
-											to="/companies"
 											style={{
 												textDecoration: "none",
 												color: "white",
 											}}
 										>
 											<Button
+												onClick={handleLogout}
 												color="inherit"
-												className="item"
 											>
-												Companies
-											</Button>
-										</Link>
-										<Link
-											to="/markets"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Markets
-											</Button>
-										</Link>
-										<Link
-											to="/keywords"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Keywords
-											</Button>
-										</Link>
-										<Link
-											to="/keyword_count"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Keyword Count
-											</Button>
-										</Link>
-										<Link
-											to="/apps"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Apps
-											</Button>
-										</Link>
-										<Link
-											to="/models"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Models
-											</Button>
-										</Link>
-										<Link
-											to="/shells"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Shells
-											</Button>
-										</Link>
-										<Link
-											to="/ads"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Display Ads
-											</Button>
-										</Link>
-										<Link
-											to="/vcs"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">VCs</Button>
-										</Link>
-										<Link
-											to="/fundings"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Fundings
-											</Button>
-										</Link>
-										<Link
-											to="/users"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Users
-											</Button>
-										</Link>
-										<Link
-											to="/neural_projects"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Neural Projects
+												LogOut
 											</Button>
 										</Link>
 									</Grid>
-									<Grid item>
-										<Link
-											to="/leads"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Leads
-											</Button>
-										</Link>
-										<Link
-											to="/suppliers"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Suppliers
-											</Button>
-										</Link>
-										<Link
-											to="/pricing"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Pricing
-											</Button>
-										</Link>
-										<Link
-											to="/feature"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Features
-											</Button>
-										</Link>
-										<Link
-											to="/questions"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Questions
-											</Button>
-										</Link>
-										<Link
-											to="/terms"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Terms
-											</Button>
-										</Link>
-										<Link
-											to="/tools"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Tools
-											</Button>
-										</Link>
-										<Link
-											to="/name_ideas"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Name Ideas
-											</Button>
-										</Link>
-										<Link
-											to="/jobs"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Jobs
-											</Button>
-										</Link>
-										<Link
-											to="/integrations"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Integrations
-											</Button>
-										</Link>{" "}
-										<Link
-											to="/adons"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												Ad-Ons
-											</Button>
-										</Link>
-										<Link
-											to="/new"
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button color="inherit">
-												News
-											</Button>
-										</Link>
-									</Grid>
-								</Grid>
-								<Grid>
-									<Link
-										style={{
-											textDecoration: "none",
-											color: "white",
-										}}
-									>
-										<Button
-											onClick={handleLogout}
-											color="inherit"
-										>
-											LogOut
-										</Button>
-									</Link>
-								</Grid>
-							</div>
-						</Toolbar>
-					</AppBar>
+								</div>
+							</Toolbar>
+						</AppBar>
+					)
 				)}
 
 				<Switch>
@@ -710,6 +747,12 @@ function App() {
 					</Route>
 					<Route path="/news">
 						<NewsTable />
+					</Route>
+					<Route path="/images">
+						<ImageTable format="image" />
+					</Route>
+					<Route path="/files">
+						<FileTable format="file" />
 					</Route>
 					<Route path="/markets">
 						<MarketTable companies={companies} />

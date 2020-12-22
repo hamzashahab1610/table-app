@@ -15,6 +15,7 @@
 		"material-table": "^1.59.0",
 		"react": "^16.13.1",
 		"react-avatar": "^3.9.6",
+		"react-cloudinary-upload-widget": "^1.2.7",
 		"react-dom": "^16.13.1",
 		"react-router": "^3.2.6",
 		"react-router-dom": "^5.2.0",
