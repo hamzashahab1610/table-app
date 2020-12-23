@@ -152,20 +152,7 @@ function App() {
 											Companies
 										</Button>
 									</Link>
-									<Link
-										to="/topPlayers"
-										style={{
-											textDecoration: "none",
-											color: "white",
-										}}
-									>
-										<Button
-											color="inherit"
-											className="item"
-										>
-											Top Players
-										</Button>
-									</Link>
+
 									<Link
 										to="/ads"
 										style={{
@@ -251,20 +238,7 @@ function App() {
 											Companies
 										</Button>
 									</Link>
-									<Link
-										to="/topPlayers"
-										style={{
-											textDecoration: "none",
-											color: "white",
-										}}
-									>
-										<Button
-											color="inherit"
-											className="item"
-										>
-											Top Players
-										</Button>
-									</Link>
+
 									<Link
 										to="/markets"
 										style={{
