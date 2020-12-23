@@ -45,6 +45,7 @@ export default function Upload({ format }) {
 	const [description, setDescription] = useState("");
 	const [type, setType] = useState("");
 	const [option, setOption] = useState("");
+	const [companies, setCompanies] = useState("");
 
 	const handleChange = (event) => {
 		setOption(event.target.value);
@@ -81,6 +82,19 @@ export default function Upload({ format }) {
 					console.log("error", error);
 				});
 		}
+		if (format === "video") {
+			api.post("/videos", {
+				name: name,
+				url: url,
+				companies: companies,
+			})
+				.then((res) => {
+					console.log("res", res);
+				})
+				.catch((error) => {
+					console.log("error", error);
+				});
+		}
 
 		window.location.reload(false);
 	};
@@ -105,31 +119,34 @@ export default function Upload({ format }) {
 					className={classes.form}
 					noValidate
 				>
-					<TextField
-						variant="outlined"
-						margin="normal"
-						required
-						fullWidth
-						id="description"
-						label="Description"
-						name="description"
-						autoFocus
-						value={description}
-						onChange={(e) => setDescription(e.target.value)}
-					/>
-
-					<TextField
-						variant="outlined"
-						margin="normal"
-						required
-						fullWidth
-						id="type"
-						label="Type"
-						name="type"
-						autoFocus
-						value={type}
-						onChange={(e) => setType(e.target.value)}
-					/>
+					{(format === "image" || format === "file") && (
+						<>
+							<TextField
+								variant="outlined"
+								margin="normal"
+								required
+								fullWidth
+								id="description"
+								label="Description"
+								name="description"
+								autoFocus
+								value={description}
+								onChange={(e) => setDescription(e.target.value)}
+							/>
+							<TextField
+								variant="outlined"
+								margin="normal"
+								required
+								fullWidth
+								id="type"
+								label="Type"
+								name="type"
+								autoFocus
+								value={type}
+								onChange={(e) => setType(e.target.value)}
+							/>
+						</>
+					)}
 
 					{format === "image" && (
 						<>
@@ -148,6 +165,23 @@ export default function Upload({ format }) {
 								</MenuItem>
 								<MenuItem value={"UI"}>UI</MenuItem>
 							</Select>
+						</>
+					)}
+
+					{format === "video" && (
+						<>
+							<TextField
+								variant="outlined"
+								margin="normal"
+								required
+								fullWidth
+								id="companies"
+								label="Companies"
+								name="companies"
+								autoFocus
+								value={companies}
+								onChange={(e) => setCompanies(e.target.value)}
+							/>
 						</>
 					)}
 

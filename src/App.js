@@ -36,6 +36,7 @@ import AdonTable from "./components/AdonTable";
 import NewsTable from "./components/NewsTable";
 import ImageTable from "./components/ImageTable";
 import FileTable from "./components/FileTable";
+import VideoTable from "./components/VideoTable";
 
 import {
 	BrowserRouter as Router,
@@ -706,6 +707,17 @@ function App() {
 													Files
 												</Button>
 											</Link>
+											<Link
+												to="/videos"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button color="inherit">
+													Videos
+												</Button>
+											</Link>
 										</Grid>
 									</Grid>
 									<Grid>
@@ -750,6 +762,9 @@ function App() {
 					</Route>
 					<Route path="/images">
 						<ImageTable format="image" />
+					</Route>
+					<Route path="/videos">
+						<VideoTable format="video" />
 					</Route>
 					<Route path="/files">
 						<FileTable format="file" />
