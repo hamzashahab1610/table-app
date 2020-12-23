@@ -69,6 +69,8 @@ function Table({ format }) {
 	const [data, setData] = useState([]); //table data
 	const [upload, setUpload] = useState(false);
 
+	console.log("data", data);
+
 	//for error handling
 	const [iserror, setIserror] = useState(false);
 	const [errorMessages, setErrorMessages] = useState([]);

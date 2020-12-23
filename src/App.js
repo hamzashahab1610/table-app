@@ -153,6 +153,20 @@ function App() {
 										</Button>
 									</Link>
 									<Link
+										to="/topPlayers"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button
+											color="inherit"
+											className="item"
+										>
+											Top Players
+										</Button>
+									</Link>
+									<Link
 										to="/ads"
 										style={{
 											textDecoration: "none",
@@ -235,6 +249,20 @@ function App() {
 									>
 										<Button color="inherit">
 											Companies
+										</Button>
+									</Link>
+									<Link
+										to="/topPlayers"
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button
+											color="inherit"
+											className="item"
+										>
+											Top Players
 										</Button>
 									</Link>
 									<Link
@@ -428,6 +456,20 @@ function App() {
 													className="item"
 												>
 													Companies
+												</Button>
+											</Link>
+											<Link
+												to="/topPlayers"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button
+													color="inherit"
+													className="item"
+												>
+													Top Players
 												</Button>
 											</Link>
 											<Link
@@ -827,7 +869,10 @@ function App() {
 						<ToolTable />
 					</Route>
 					<Route path="/companies">
-						<CompanyTable />
+						<CompanyTable topPlayer={false} />
+					</Route>
+					<Route path="/topPlayers">
+						<CompanyTable topPlayer={true} />
 					</Route>
 				</Switch>
 			</div>

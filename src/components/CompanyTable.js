@@ -57,7 +57,7 @@ const tableIcons = {
 // 	return re.test(String(email).toLowerCase());
 // }
 
-function Table() {
+function Table({ topPlayer }) {
 	var columns = [
 		//{ title: "id", field: "id", hidden: true },
 		// {
@@ -103,14 +103,24 @@ function Table() {
 	const [errorMessages, setErrorMessages] = useState([]);
 
 	useEffect(() => {
-		api.get("/companies")
-			.then((res) => {
-				setData(res.data);
-			})
-			.catch((error) => {
-				console.log("Error");
-			});
-	}, []);
+		if (topPlayer) {
+			api.get("/topPlayers")
+				.then((res) => {
+					setData(res.data);
+				})
+				.catch((error) => {
+					console.log("Error");
+				});
+		} else {
+			api.get("/companies")
+				.then((res) => {
+					setData(res.data);
+				})
+				.catch((error) => {
+					console.log("Error");
+				});
+		}
+	}, [topPlayer]);
 
 	const handleRowUpdate = (newData, oldData, resolve) => {
 		//validation
@@ -247,20 +257,26 @@ function Table() {
 						columns={columns}
 						data={data}
 						icons={tableIcons}
-						editable={{
-							onRowUpdate: (newData, oldData) =>
-								new Promise((resolve) => {
-									handleRowUpdate(newData, oldData, resolve);
-								}),
-							onRowAdd: (newData) =>
-								new Promise((resolve) => {
-									handleRowAdd(newData, resolve);
-								}),
-							onRowDelete: (oldData) =>
-								new Promise((resolve) => {
-									handleRowDelete(oldData, resolve);
-								}),
-						}}
+						editable={
+							!topPlayer && {
+								onRowUpdate: (newData, oldData) =>
+									new Promise((resolve) => {
+										handleRowUpdate(
+											newData,
+											oldData,
+											resolve,
+										);
+									}),
+								onRowAdd: (newData) =>
+									new Promise((resolve) => {
+										handleRowAdd(newData, resolve);
+									}),
+								onRowDelete: (oldData) =>
+									new Promise((resolve) => {
+										handleRowDelete(oldData, resolve);
+									}),
+							}
+						}
 						options={{
 							exportButton: true,
 						}}
