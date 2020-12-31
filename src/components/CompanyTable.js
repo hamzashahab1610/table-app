@@ -74,7 +74,17 @@ function Table({ topPlayer }) {
 		{ title: "Company Name", field: "company_name" },
 		//{ title: "Companies", field: "companies" },
 		{ title: "Keywords", field: "keywords" },
-		{ title: "Total Funding", field: "total_funding", type: "numeric" },
+		{
+			title: "Total Funding",
+			field: "total_funding",
+			type: "numeric",
+			cellStyle: {
+				maxWidth: "10px",
+			},
+			headerStyle: {
+				width: "10px",
+			},
+		},
 		{
 			title: "Last Funding Date",
 			field: "last_funding_date",
@@ -84,14 +94,29 @@ function Table({ topPlayer }) {
 			title: "Last Funding Amount",
 			field: "last_funding_amount",
 			type: "numeric",
+			cellStyle: {
+				maxWidth: "10px",
+			},
+			headerStyle: {
+				width: "10px",
+			},
 		},
 		{
 			title: "Top Player",
 			field: "top_player",
-			//lookup: { Yes: "Yes", No: "No" },
 			type: "boolean",
 		},
-		{ title: "Tagline Text Block", field: "tagline_text_block" },
+		{
+			title: "Tagline Text Block",
+			field: "tagline_text_block",
+			cellStyle: {
+				width: "100px",
+				wordBreak: "break-all",
+			},
+			headerStyle: {
+				width: "10px",
+			},
+		},
 		{ title: "Revenue", field: "revenue", type: "numeric" },
 	];
 	const [data, setData] = useState([]); //table data
@@ -128,24 +153,24 @@ function Table({ topPlayer }) {
 		if (newData.company_name === "") {
 			errorList.push("Please enter company name");
 		}
-		if (newData.total_funding === "") {
-			errorList.push("Please enter total fundings");
-		}
-		if (newData.last_funding_date === "") {
-			errorList.push("Please enter last funding date");
-		}
-		if (newData.last_funding_amount === "") {
-			errorList.push("Please enter last funding amount");
-		}
-		if (newData.top_player === "") {
-			errorList.push("Please enter top player");
-		}
-		if (
-			newData.keywords === ""
-			//validateEmail(newData.keywords) === false
-		) {
-			errorList.push("Please enter valid keywords");
-		}
+		// if (newData.total_funding === "") {
+		// 	errorList.push("Please enter total fundings");
+		// }
+		// if (newData.last_funding_date === "") {
+		// 	errorList.push("Please enter last funding date");
+		// }
+		// if (newData.last_funding_amount === "") {
+		// 	errorList.push("Please enter last funding amount");
+		// }
+		// if (newData.top_player === "") {
+		// 	errorList.push("Please enter top player");
+		// }
+		// if (
+		// 	newData.keywords === ""
+		// 	//validateEmail(newData.keywords) === false
+		// ) {
+		// 	errorList.push("Please enter valid keywords");
+		// }
 
 		if (errorList.length < 1) {
 			api.patch("/companies/" + newData._id, newData)
@@ -177,24 +202,24 @@ function Table({ topPlayer }) {
 		if (newData.company_name === undefined) {
 			errorList.push("Please enter company name");
 		}
-		if (newData.total_funding === undefined) {
-			errorList.push("Please enter total fundings");
-		}
-		if (newData.last_funding_date === undefined) {
-			errorList.push("Please enter last funding date");
-		}
-		if (newData.last_funding_amount === undefined) {
-			errorList.push("Please enter last funding amount");
-		}
-		if (newData.top_player === undefined) {
-			errorList.push("Please enter top player");
-		}
-		if (
-			newData.keywords === undefined
-			//validateEmail(newData.keywords) === false
-		) {
-			errorList.push("Please enter valid keywords");
-		}
+		// if (newData.total_funding === undefined) {
+		// 	errorList.push("Please enter total fundings");
+		// }
+		// if (newData.last_funding_date === undefined) {
+		// 	errorList.push("Please enter last funding date");
+		// }
+		// if (newData.last_funding_amount === undefined) {
+		// 	errorList.push("Please enter last funding amount");
+		// }
+		// if (newData.top_player === undefined) {
+		// 	errorList.push("Please enter top player");
+		// }
+		// if (
+		// 	newData.keywords === undefined
+		// 	//validateEmail(newData.keywords) === false
+		// ) {
+		// 	errorList.push("Please enter valid keywords");
+		// }
 
 		if (errorList.length < 1) {
 			//no error
