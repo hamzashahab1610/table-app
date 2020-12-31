@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	title: {
 		flexGrow: 1,
+		textTransform: "lowercase",
 	},
 }));
 
@@ -148,8 +149,13 @@ function App() {
 											color: "white",
 										}}
 									>
-										<Button color="inherit">
-											Companies
+										<Button
+											style={{
+												textTransform: "initial",
+											}}
+											color="inherit"
+										>
+											companies
 										</Button>
 									</Link>
 
@@ -160,8 +166,13 @@ function App() {
 											color: "white",
 										}}
 									>
-										<Button color="inherit">
-											Display Ads
+										<Button
+											style={{
+												textTransform: "initial",
+											}}
+											color="inherit"
+										>
+											displayAds
 										</Button>
 									</Link>
 									<Link
@@ -171,8 +182,13 @@ function App() {
 											color: "white",
 										}}
 									>
-										<Button color="inherit">
-											Keywords
+										<Button
+											style={{
+												textTransform: "initial",
+											}}
+											color="inherit"
+										>
+											keywords
 										</Button>
 									</Link>
 									<Link
@@ -182,8 +198,13 @@ function App() {
 											color: "white",
 										}}
 									>
-										<Button color="inherit">
-											Keyword Count
+										<Button
+											style={{
+												textTransform: "initial",
+											}}
+											color="inherit"
+										>
+											keywordCount
 										</Button>
 									</Link>
 								</Grid>
@@ -195,6 +216,9 @@ function App() {
 										}}
 									>
 										<Button
+											style={{
+												textTransform: "initial",
+											}}
 											onClick={handleLogout}
 											color="inherit"
 										>
@@ -234,8 +258,13 @@ function App() {
 											color: "white",
 										}}
 									>
-										<Button color="inherit">
-											Companies
+										<Button
+											style={{
+												textTransform: "initial",
+											}}
+											color="inherit"
+										>
+											companies
 										</Button>
 									</Link>
 
@@ -246,7 +275,14 @@ function App() {
 											color: "white",
 										}}
 									>
-										<Button color="inherit">Markets</Button>
+										<Button
+											style={{
+												textTransform: "initial",
+											}}
+											color="inherit"
+										>
+											markets
+										</Button>
 									</Link>
 									<Link
 										to="/keywords"
@@ -255,8 +291,13 @@ function App() {
 											color: "white",
 										}}
 									>
-										<Button color="inherit">
-											Keywords
+										<Button
+											style={{
+												textTransform: "initial",
+											}}
+											color="inherit"
+										>
+											keywords
 										</Button>
 									</Link>
 									<Link
@@ -266,8 +307,13 @@ function App() {
 											color: "white",
 										}}
 									>
-										<Button color="inherit">
-											Keyword Count
+										<Button
+											style={{
+												textTransform: "initial",
+											}}
+											color="inherit"
+										>
+											keywordCount
 										</Button>
 									</Link>
 
@@ -278,8 +324,13 @@ function App() {
 											color: "white",
 										}}
 									>
-										<Button color="inherit">
-											Display Ads
+										<Button
+											style={{
+												textTransform: "initial",
+											}}
+											color="inherit"
+										>
+											displayAds
 										</Button>
 									</Link>
 									<Link
@@ -289,7 +340,14 @@ function App() {
 											color: "white",
 										}}
 									>
-										<Button color="inherit">VCs</Button>
+										<Button
+											style={{
+												textTransform: "initial",
+											}}
+											color="inherit"
+										>
+											vcs
+										</Button>
 									</Link>
 									<Link
 										to="/fundings"
@@ -298,8 +356,13 @@ function App() {
 											color: "white",
 										}}
 									>
-										<Button color="inherit">
-											Fundings
+										<Button
+											style={{
+												textTransform: "initial",
+											}}
+											color="inherit"
+										>
+											fundings
 										</Button>
 									</Link>
 									<Link
@@ -309,7 +372,14 @@ function App() {
 											color: "white",
 										}}
 									>
-										<Button color="inherit">Pricing</Button>
+										<Button
+											style={{
+												textTransform: "initial",
+											}}
+											color="inherit"
+										>
+											pricing
+										</Button>
 									</Link>
 									<Link
 										to="/features"
@@ -318,8 +388,13 @@ function App() {
 											color: "white",
 										}}
 									>
-										<Button color="inherit">
-											Features
+										<Button
+											style={{
+												textTransform: "initial",
+											}}
+											color="inherit"
+										>
+											features
 										</Button>
 									</Link>
 								</Grid>
@@ -331,6 +406,9 @@ function App() {
 										}}
 									>
 										<Button
+											style={{
+												textTransform: "initial",
+											}}
 											onClick={handleLogout}
 											color="inherit"
 										>
@@ -370,7 +448,14 @@ function App() {
 											color: "white",
 										}}
 									>
-										<Button color="inherit">Leads</Button>
+										<Button
+											style={{
+												textTransform: "initial",
+											}}
+											color="inherit"
+										>
+											leads
+										</Button>
 									</Link>
 								</Grid>
 								<Grid item>
@@ -381,6 +466,9 @@ function App() {
 										}}
 									>
 										<Button
+											style={{
+												textTransform: "initial",
+											}}
 											onClick={handleLogout}
 											color="inherit"
 										>
@@ -408,6 +496,7 @@ function App() {
 										alignItems="center"
 										container
 										spacing={0}
+										className={classes.title}
 									>
 										<Grid item>
 											{/* <IconButton
@@ -428,8 +517,12 @@ function App() {
 												<Button
 													color="inherit"
 													className="item"
+													style={{
+														textTransform:
+															"initial",
+													}}
 												>
-													Companies
+													companies
 												</Button>
 											</Link>
 											<Link
@@ -442,8 +535,12 @@ function App() {
 												<Button
 													color="inherit"
 													className="item"
+													style={{
+														textTransform:
+															"initial",
+													}}
 												>
-													Top Players
+													topPlayers
 												</Button>
 											</Link>
 											<Link
@@ -453,8 +550,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Markets
+												<Button
+													color="inherit"
+													style={{
+														textTransform:
+															"initial",
+													}}
+												>
+													markets
 												</Button>
 											</Link>
 											<Link
@@ -464,8 +567,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Keywords
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													keywords
 												</Button>
 											</Link>
 											<Link
@@ -475,8 +584,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Keyword Count
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													keywordCount
 												</Button>
 											</Link>
 											<Link
@@ -486,8 +601,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Apps
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													apps
 												</Button>
 											</Link>
 											<Link
@@ -497,8 +618,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Models
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													models
 												</Button>
 											</Link>
 											<Link
@@ -508,8 +635,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Shells
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													shells
 												</Button>
 											</Link>
 											<Link
@@ -519,8 +652,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Display Ads
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													displayAds
 												</Button>
 											</Link>
 											<Link
@@ -530,8 +669,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													VCs
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													vcs
 												</Button>
 											</Link>
 											<Link
@@ -541,8 +686,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Fundings
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													fundings
 												</Button>
 											</Link>
 											<Link
@@ -553,7 +704,7 @@ function App() {
 												}}
 											>
 												<Button color="inherit">
-													Users
+													users
 												</Button>
 											</Link>
 											<Link
@@ -563,8 +714,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Neural Projects
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													neuralProjects
 												</Button>
 											</Link>
 										</Grid>
@@ -576,8 +733,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Leads
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													leads
 												</Button>
 											</Link>
 											<Link
@@ -587,8 +750,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Suppliers
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													suppliers
 												</Button>
 											</Link>
 											<Link
@@ -598,8 +767,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Pricing
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													pricing
 												</Button>
 											</Link>
 											<Link
@@ -609,8 +784,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Features
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													features
 												</Button>
 											</Link>
 											<Link
@@ -620,8 +801,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Questions
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													questions
 												</Button>
 											</Link>
 											<Link
@@ -631,8 +818,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Terms
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													terms
 												</Button>
 											</Link>
 											<Link
@@ -642,8 +835,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Tools
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													tools
 												</Button>
 											</Link>
 											<Link
@@ -653,8 +852,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Name Ideas
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													nameIdeas
 												</Button>
 											</Link>
 											<Link
@@ -664,8 +869,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Jobs
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													jobs
 												</Button>
 											</Link>
 											<Link
@@ -675,8 +886,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Integrations
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													integrations
 												</Button>
 											</Link>{" "}
 											<Link
@@ -686,8 +903,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Ad-Ons
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													adOns
 												</Button>
 											</Link>
 											<Link
@@ -697,8 +920,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													News
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													news
 												</Button>
 											</Link>
 											<Link
@@ -708,8 +937,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Images
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													images
 												</Button>
 											</Link>
 											<Link
@@ -719,8 +954,14 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Files
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													files
 												</Button>
 											</Link>
 											<Link
@@ -730,12 +971,19 @@ function App() {
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
-													Videos
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													videos
 												</Button>
 											</Link>
 										</Grid>
 									</Grid>
+
 									<Grid>
 										<Link
 											style={{
@@ -744,10 +992,13 @@ function App() {
 											}}
 										>
 											<Button
+												style={{
+													textTransform: "initial",
+												}}
 												onClick={handleLogout}
 												color="inherit"
 											>
-												LogOut
+												Log Out
 											</Button>
 										</Link>
 									</Grid>
