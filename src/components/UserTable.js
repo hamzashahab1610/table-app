@@ -148,12 +148,22 @@ function Table() {
 		}
 
 		if (errorList.length < 1) {
-			const result = firebase.register(
-				newData.user_name,
-				newData.user_email,
-				newData.user_password,
-				newData.user_role,
-			);
+			const result = firebase
+				.register(
+					newData.user_name,
+					newData.user_email,
+					newData.user_password,
+					newData.user_role,
+				)
+				.then((res) => {
+					setErrorMessages([]);
+					setIserror(false);
+				})
+				.catch((error) => {
+					setErrorMessages([`${error}`]);
+					setIserror(true);
+					resolve();
+				});
 			result.then(function (res) {
 				console.log("result", res);
 				firebase.createProfile(
