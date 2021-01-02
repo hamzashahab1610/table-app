@@ -78,7 +78,7 @@ function Table({ companies }) {
 		// },
 		{ title: "Site", field: "site" },
 		{ title: "Ad Type", field: "ad_type" },
-		{ title: "Ad Costs", field: "ad_costs", type: "numeric" },
+		{ title: "Ad Costs", field: "ad_costs" },
 		{ title: "Contact Info", field: "contact_info" },
 	];
 	const [data, setData] = useState([]); //table data
