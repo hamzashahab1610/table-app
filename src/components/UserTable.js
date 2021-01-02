@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { forwardRef } from "react";
 import Avatar from "react-avatar";
-import Grid from "@material-ui/core/Grid";
+import { useHistory } from "react-router-dom";
 
+import Grid from "@material-ui/core/Grid";
 import MaterialTable from "material-table";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
@@ -60,7 +61,11 @@ const tableIcons = {
 // }
 
 function Table() {
-	var uid;
+	const history = useHistory();
+	var result;
+	var email;
+	var password;
+
 	var columns = [
 		{ title: "Name", field: "user_name" },
 		{ title: "Email", field: "user_email" },
@@ -80,6 +85,39 @@ function Table() {
 	//for error handling
 	const [iserror, setIserror] = useState(false);
 	const [errorMessages, setErrorMessages] = useState([]);
+	const [user, setUser] = useState();
+	const [firebaseInitialized, setfirebaseInitialized] = useState();
+
+	useEffect(() => {
+		firebase.isInitialized().then((val) => {
+			if (val) {
+				setfirebaseInitialized(val);
+			} else {
+				setfirebaseInitialized(false);
+			}
+		});
+	});
+
+	useEffect(() => {
+		if (firebaseInitialized && firebaseInitialized !== false) {
+			result = firebase.findUser(firebaseInitialized.email);
+			result.then(function (res) {
+				setUser(res);
+			});
+		}
+	}, [firebaseInitialized]);
+
+	console.log(user);
+	if (user) {
+		email = user.user_email;
+		password = user.user_password;
+	}
+
+	useEffect(() => {
+		if (firebaseInitialized === false) {
+			history.push("/signin");
+		}
+	}, []);
 
 	useEffect(() => {
 		api.get("/users")
@@ -158,38 +196,53 @@ function Table() {
 				.then((res) => {
 					setErrorMessages([]);
 					setIserror(false);
+
+					if (user.user_role === "owner") {
+						firebase.login(email, password);
+					}
+
+					firebase.createProfile(
+						newData.user_name,
+						newData.user_email,
+						newData.user_password,
+						newData.user_role,
+						res.user.uid,
+					);
+
+					api.post("/users", newData)
+						.then((res) => {
+							let dataToAdd = [...data];
+							dataToAdd.push(newData);
+							setData(dataToAdd);
+							resolve();
+							//window.location.reload(false);
+							setErrorMessages([]);
+							setIserror(false);
+						})
+						.catch((error) => {
+							setErrorMessages([
+								"Cannot add data. Server error!",
+							]);
+							setIserror(true);
+							resolve();
+						});
 				})
 				.catch((error) => {
 					setErrorMessages([`${error}`]);
 					setIserror(true);
 					resolve();
 				});
-			result.then(function (res) {
-				console.log("result", res);
-				firebase.createProfile(
-					newData.user_name,
-					newData.user_email,
-					newData.user_password,
-					newData.user_role,
-					res.user.uid,
-				);
-			});
+			// result.then(function (res) {
+			// 	console.log("result", res);
+			// 	firebase.createProfile(
+			// 		newData.user_name,
+			// 		newData.user_email,
+			// 		newData.user_password,
+			// 		newData.user_role,
+			// 		res.user.uid,
+			// 	);
+			// });
 			//no error
-			api.post("/users", newData)
-				.then((res) => {
-					let dataToAdd = [...data];
-					dataToAdd.push(newData);
-					setData(dataToAdd);
-					resolve();
-					//window.location.reload(false);
-					setErrorMessages([]);
-					setIserror(false);
-				})
-				.catch((error) => {
-					setErrorMessages(["Cannot add data. Server error!"]);
-					setIserror(true);
-					resolve();
-				});
 		} else {
 			setErrorMessages(errorList);
 			setIserror(true);
