@@ -29,6 +29,12 @@
 	color: white;
 }
 
+.active-link {
+	display: inline-block;
+	text-decoration: none;
+	border-bottom: 2px solid white;
+}
+
 .App-link {
 	color: #61dafb;
 }

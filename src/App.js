@@ -42,6 +42,7 @@ import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
+	NavLink,
 	Link,
 	useLocation,
 	useHistory,
@@ -142,7 +143,8 @@ function App() {
 									>
 										<MenuIcon />
 									</IconButton> */}
-									<Link
+									<NavLink
+										activeClassName="active-link"
 										to="/companies"
 										style={{
 											textDecoration: "none",
@@ -157,9 +159,10 @@ function App() {
 										>
 											companies
 										</Button>
-									</Link>
+									</NavLink>
 
-									<Link
+									<NavLink
+										activeClassName="active-link"
 										to="/ads"
 										style={{
 											textDecoration: "none",
@@ -174,8 +177,9 @@ function App() {
 										>
 											displayAds
 										</Button>
-									</Link>
-									<Link
+									</NavLink>
+									<NavLink
+										activeClassName="active-link"
 										to="/keywords"
 										style={{
 											textDecoration: "none",
@@ -190,8 +194,9 @@ function App() {
 										>
 											keywords
 										</Button>
-									</Link>
-									<Link
+									</NavLink>
+									<NavLink
+										activeClassName="active-link"
 										to="/keyword_count"
 										style={{
 											textDecoration: "none",
@@ -206,9 +211,9 @@ function App() {
 										>
 											keywordCount
 										</Button>
-									</Link>
+									</NavLink>
 								</Grid>
-								<Grid item>
+								<Grid item style={{ width: "5rem" }}>
 									<Link
 										style={{
 											textDecoration: "none",
@@ -251,7 +256,8 @@ function App() {
 									>
 										<MenuIcon />
 									</IconButton> */}
-									<Link
+									<NavLink
+										activeClassName="active-link"
 										to="/companies"
 										style={{
 											textDecoration: "none",
@@ -266,9 +272,10 @@ function App() {
 										>
 											companies
 										</Button>
-									</Link>
+									</NavLink>
 
-									<Link
+									<NavLink
+										activeClassName="active-link"
 										to="/markets"
 										style={{
 											textDecoration: "none",
@@ -283,8 +290,9 @@ function App() {
 										>
 											markets
 										</Button>
-									</Link>
-									<Link
+									</NavLink>
+									<NavLink
+										activeClassName="active-link"
 										to="/keywords"
 										style={{
 											textDecoration: "none",
@@ -299,8 +307,9 @@ function App() {
 										>
 											keywords
 										</Button>
-									</Link>
-									<Link
+									</NavLink>
+									<NavLink
+										activeClassName="active-link"
 										to="/keyword_count"
 										style={{
 											textDecoration: "none",
@@ -315,9 +324,10 @@ function App() {
 										>
 											keywordCount
 										</Button>
-									</Link>
+									</NavLink>
 
-									<Link
+									<NavLink
+										activeClassName="active-link"
 										to="/ads"
 										style={{
 											textDecoration: "none",
@@ -332,8 +342,9 @@ function App() {
 										>
 											displayAds
 										</Button>
-									</Link>
-									<Link
+									</NavLink>
+									<NavLink
+										activeClassName="active-link"
 										to="/vcs"
 										style={{
 											textDecoration: "none",
@@ -348,8 +359,9 @@ function App() {
 										>
 											vcs
 										</Button>
-									</Link>
-									<Link
+									</NavLink>
+									<NavLink
+										activeClassName="active-link"
 										to="/fundings"
 										style={{
 											textDecoration: "none",
@@ -364,8 +376,9 @@ function App() {
 										>
 											fundings
 										</Button>
-									</Link>
-									<Link
+									</NavLink>
+									<NavLink
+										activeClassName="active-link"
 										to="/pricing"
 										style={{
 											textDecoration: "none",
@@ -380,8 +393,9 @@ function App() {
 										>
 											pricing
 										</Button>
-									</Link>
-									<Link
+									</NavLink>
+									<NavLink
+										activeClassName="active-link"
 										to="/features"
 										style={{
 											textDecoration: "none",
@@ -396,9 +410,9 @@ function App() {
 										>
 											features
 										</Button>
-									</Link>
+									</NavLink>
 								</Grid>
-								<Grid item>
+								<Grid item style={{ width: "5rem" }}>
 									<Link
 										style={{
 											textDecoration: "none",
@@ -441,7 +455,8 @@ function App() {
 									>
 										<MenuIcon />
 									</IconButton> */}
-									<Link
+									<NavLink
+										activeClassName="active-link"
 										to="/leads"
 										style={{
 											textDecoration: "none",
@@ -456,9 +471,9 @@ function App() {
 										>
 											leads
 										</Button>
-									</Link>
+									</NavLink>
 								</Grid>
-								<Grid item>
+								<Grid item style={{ width: "5rem" }}>
 									<Link
 										style={{
 											textDecoration: "none",
@@ -507,7 +522,8 @@ function App() {
 									>
 										<MenuIcon />
 									</IconButton> */}
-											<Link
+											<NavLink
+												activeClassName="active-link"
 												to="/companies"
 												style={{
 													textDecoration: "none",
@@ -524,8 +540,9 @@ function App() {
 												>
 													companies
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/topPlayers"
 												style={{
 													textDecoration: "none",
@@ -542,8 +559,9 @@ function App() {
 												>
 													topPlayers
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/markets"
 												style={{
 													textDecoration: "none",
@@ -559,8 +577,9 @@ function App() {
 												>
 													markets
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/keywords"
 												style={{
 													textDecoration: "none",
@@ -576,8 +595,9 @@ function App() {
 												>
 													keywords
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/keyword_count"
 												style={{
 													textDecoration: "none",
@@ -593,8 +613,9 @@ function App() {
 												>
 													keywordCount
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/apps"
 												style={{
 													textDecoration: "none",
@@ -610,8 +631,9 @@ function App() {
 												>
 													apps
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/models"
 												style={{
 													textDecoration: "none",
@@ -627,8 +649,9 @@ function App() {
 												>
 													models
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/shells"
 												style={{
 													textDecoration: "none",
@@ -644,8 +667,9 @@ function App() {
 												>
 													shells
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/ads"
 												style={{
 													textDecoration: "none",
@@ -661,8 +685,9 @@ function App() {
 												>
 													displayAds
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/vcs"
 												style={{
 													textDecoration: "none",
@@ -678,8 +703,9 @@ function App() {
 												>
 													vcs
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/fundings"
 												style={{
 													textDecoration: "none",
@@ -695,19 +721,28 @@ function App() {
 												>
 													fundings
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/users"
 												style={{
 													textDecoration: "none",
+
 													color: "white",
 												}}
 											>
-												<Button color="inherit">
+												<Button
+													color="inherit"
+													style={{
+														textTransform:
+															"initial",
+													}}
+												>
 													users
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/neural_projects"
 												style={{
 													textDecoration: "none",
@@ -723,10 +758,11 @@ function App() {
 												>
 													neuralProjects
 												</Button>
-											</Link>
+											</NavLink>
 										</Grid>
 										<Grid item>
-											<Link
+											<NavLink
+												activeClassName="active-link"
 												to="/leads"
 												style={{
 													textDecoration: "none",
@@ -742,8 +778,9 @@ function App() {
 												>
 													leads
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/suppliers"
 												style={{
 													textDecoration: "none",
@@ -759,8 +796,9 @@ function App() {
 												>
 													suppliers
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/pricing"
 												style={{
 													textDecoration: "none",
@@ -776,8 +814,9 @@ function App() {
 												>
 													pricing
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/feature"
 												style={{
 													textDecoration: "none",
@@ -793,8 +832,9 @@ function App() {
 												>
 													features
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/questions"
 												style={{
 													textDecoration: "none",
@@ -810,8 +850,9 @@ function App() {
 												>
 													questions
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/terms"
 												style={{
 													textDecoration: "none",
@@ -827,8 +868,9 @@ function App() {
 												>
 													terms
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/tools"
 												style={{
 													textDecoration: "none",
@@ -844,8 +886,9 @@ function App() {
 												>
 													tools
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/name_ideas"
 												style={{
 													textDecoration: "none",
@@ -861,8 +904,9 @@ function App() {
 												>
 													nameIdeas
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/jobs"
 												style={{
 													textDecoration: "none",
@@ -878,8 +922,9 @@ function App() {
 												>
 													jobs
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/integrations"
 												style={{
 													textDecoration: "none",
@@ -895,8 +940,9 @@ function App() {
 												>
 													integrations
 												</Button>
-											</Link>{" "}
-											<Link
+											</NavLink>{" "}
+											<NavLink
+												activeClassName="active-link"
 												to="/adons"
 												style={{
 													textDecoration: "none",
@@ -912,8 +958,9 @@ function App() {
 												>
 													adOns
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/new"
 												style={{
 													textDecoration: "none",
@@ -929,8 +976,9 @@ function App() {
 												>
 													news
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/images"
 												style={{
 													textDecoration: "none",
@@ -946,8 +994,9 @@ function App() {
 												>
 													images
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/files"
 												style={{
 													textDecoration: "none",
@@ -963,8 +1012,9 @@ function App() {
 												>
 													files
 												</Button>
-											</Link>
-											<Link
+											</NavLink>
+											<NavLink
+												activeClassName="active-link"
 												to="/videos"
 												style={{
 													textDecoration: "none",
@@ -980,11 +1030,11 @@ function App() {
 												>
 													videos
 												</Button>
-											</Link>
+											</NavLink>
 										</Grid>
 									</Grid>
 
-									<Grid>
+									<Grid style={{ width: "5rem" }}>
 										<Link
 											style={{
 												textDecoration: "none",
