@@ -76,9 +76,21 @@ function Table({ companies }) {
 		// 		/>
 		// 	),
 		// },
-		{ title: "Model Name", field: "model_name" },
-		{ title: "Category", field: "category" },
-		{ title: "Description", field: "description" },
+		{
+			title: "Model Name",
+			field: "model_name",
+			width: "25%",
+		},
+		{
+			title: "Category",
+			field: "category",
+			width: "25%",
+		},
+		{
+			title: "Description",
+			field: "description",
+			width: "50%",
+		},
 	];
 	const [data, setData] = useState([]); //table data
 
