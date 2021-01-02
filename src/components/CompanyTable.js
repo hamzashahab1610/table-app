@@ -73,16 +73,25 @@ function Table({ topPlayer }) {
 		// },
 		{ title: "Company Name", field: "company_name" },
 		//{ title: "Companies", field: "companies" },
-		{ title: "Keywords", field: "keywords" },
+		{
+			title: "Keywords",
+			field: "keywords",
+			cellStyle: {
+				width: "5%",
+			},
+			headerStyle: {
+				width: "5%",
+			},
+		},
 		{
 			title: "Total Funding",
 			field: "total_funding",
-			type: "numeric",
+			//type: "numeric",
 			cellStyle: {
-				maxWidth: "10px",
+				width: "5%",
 			},
 			headerStyle: {
-				width: "10px",
+				width: "5%",
 			},
 		},
 		{
@@ -93,12 +102,12 @@ function Table({ topPlayer }) {
 		{
 			title: "Last Funding Amount",
 			field: "last_funding_amount",
-			type: "numeric",
+			//type: "numeric",
 			cellStyle: {
-				maxWidth: "10px",
+				width: "10%",
 			},
 			headerStyle: {
-				width: "10px",
+				width: "10%",
 			},
 		},
 		{
@@ -110,11 +119,11 @@ function Table({ topPlayer }) {
 			title: "Tagline Text Block",
 			field: "tagline_text_block",
 			cellStyle: {
-				width: "100px",
+				width: "50%",
 				wordBreak: "break-all",
 			},
 			headerStyle: {
-				width: "10px",
+				width: "50%",
 			},
 		},
 		{ title: "Revenue", field: "revenue", type: "numeric" },
