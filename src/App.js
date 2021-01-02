@@ -192,7 +192,7 @@ function App() {
 											}}
 											color="inherit"
 										>
-											keywords
+											topKeywords
 										</Button>
 									</NavLink>
 									<NavLink
@@ -305,7 +305,7 @@ function App() {
 											}}
 											color="inherit"
 										>
-											keywords
+											topKeywords
 										</Button>
 									</NavLink>
 									<NavLink
@@ -593,7 +593,7 @@ function App() {
 													}}
 													color="inherit"
 												>
-													keywords
+													topKeywords
 												</Button>
 											</NavLink>
 											<NavLink

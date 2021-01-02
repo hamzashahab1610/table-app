@@ -209,7 +209,7 @@ function Table({ companies }) {
 						)}
 					</div>
 					<MaterialTable
-						title="Keyword Table"
+						title="Top Keyword Table"
 						columns={columns}
 						data={data}
 						icons={tableIcons}
