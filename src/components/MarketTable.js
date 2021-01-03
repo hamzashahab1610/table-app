@@ -79,6 +79,7 @@ function Table({ companies }) {
 		{ title: "Market Name", field: "market_name" },
 		{ title: "Companies", field: "companies" },
 		{ title: "Keywords", field: "keywords" },
+		{ title: "Market Size", field: "market_size" },
 	];
 	const [data, setData] = useState([]); //table data
 
@@ -104,6 +105,9 @@ function Table({ companies }) {
 		}
 		if (newData.companies === "") {
 			errorList.push("Please enter companies");
+		}
+		if (newData.market_size === "") {
+			errorList.push("Please enter market_size");
 		}
 		if (
 			newData.keywords === ""
@@ -144,6 +148,9 @@ function Table({ companies }) {
 		}
 		if (newData.companies === undefined) {
 			errorList.push("Please enter companies");
+		}
+		if (newData.market_size === undefined) {
+			errorList.push("Please enter market_size");
 		}
 		if (
 			newData.keywords === undefined
