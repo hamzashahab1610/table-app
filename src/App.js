@@ -37,6 +37,7 @@ import NewsTable from "./components/NewsTable";
 import ImageTable from "./components/ImageTable";
 import FileTable from "./components/FileTable";
 import VideoTable from "./components/VideoTable";
+import ReviewSiteTable from "./components/ReviewSiteTable";
 
 import {
 	BrowserRouter as Router,
@@ -1031,6 +1032,24 @@ function App() {
 													videos
 												</Button>
 											</NavLink>
+											<NavLink
+												activeClassName="active-link"
+												to="/review_sites"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													color="inherit"
+												>
+													reviewSites
+												</Button>
+											</NavLink>
 										</Grid>
 									</Grid>
 
@@ -1142,6 +1161,9 @@ function App() {
 					</Route>
 					<Route path="/tools">
 						<ToolTable />
+					</Route>
+					<Route path="/review_sites">
+						<ReviewSiteTable />
 					</Route>
 					<Route path="/companies">
 						<CompanyTable topPlayer={false} />
