@@ -72,27 +72,13 @@ function Table({ topPlayer }) {
 		// 	),
 		// },
 		{ title: "Company Name", field: "company_name" },
-		//{ title: "Companies", field: "companies" },
 		{
 			title: "Keywords",
 			field: "keywords",
-			cellStyle: {
-				width: "5%",
-			},
-			headerStyle: {
-				width: "5%",
-			},
 		},
 		{
 			title: "Total Funding",
 			field: "total_funding",
-			//type: "numeric",
-			cellStyle: {
-				width: "5%",
-			},
-			headerStyle: {
-				width: "5%",
-			},
 		},
 		{
 			title: "Last Funding Date",
@@ -102,13 +88,6 @@ function Table({ topPlayer }) {
 		{
 			title: "Last Funding Amount",
 			field: "last_funding_amount",
-			//type: "numeric",
-			cellStyle: {
-				width: "10%",
-			},
-			headerStyle: {
-				width: "10%",
-			},
 		},
 		{
 			title: "Top Player",
@@ -118,15 +97,20 @@ function Table({ topPlayer }) {
 		{
 			title: "Tagline Text Block",
 			field: "tagline_text_block",
+			width: "20%",
 			cellStyle: {
-				width: "50%",
 				wordBreak: "break-all",
-			},
-			headerStyle: {
-				width: "50%",
 			},
 		},
 		{ title: "Revenue", field: "revenue", type: "numeric" },
+		{
+			title: "URL",
+			field: "url",
+			width: "20%",
+			cellStyle: {
+				wordBreak: "break-all",
+			},
+		},
 	];
 	const [data, setData] = useState([]); //table data
 
