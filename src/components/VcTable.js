@@ -80,6 +80,9 @@ function Table({ companies }) {
 		{ title: "Location", field: "location" },
 		{ title: "Markets", field: "markets" },
 		{ title: "Companies Funded", field: "companies_funded" },
+		{ title: "URL", field: "url" },
+		{ title: "Contacts", field: "contacts" },
+		{ title: "Investment Criteria", field: "investment_criteria" },
 	];
 	const [data, setData] = useState([]); //table data
 
@@ -111,6 +114,15 @@ function Table({ companies }) {
 		}
 		if (newData.companies_funded === "") {
 			errorList.push("Please enter companies funded");
+		}
+		if (newData.url === "") {
+			errorList.push("Please enter url");
+		}
+		if (newData.contacts === "") {
+			errorList.push("Please enter contacts");
+		}
+		if (newData.investment_criteria === "") {
+			errorList.push("Please enter investment_criteria");
 		}
 
 		if (errorList.length < 1) {
@@ -151,6 +163,15 @@ function Table({ companies }) {
 		}
 		if (newData.companies_funded === undefined) {
 			errorList.push("Please enter companies funded");
+		}
+		if (newData.url === undefined) {
+			errorList.push("Please enter url");
+		}
+		if (newData.contacts === undefined) {
+			errorList.push("Please enter contacts");
+		}
+		if (newData.investment_criteria === undefined) {
+			errorList.push("Please enter investment_criteria");
 		}
 
 		if (errorList.length < 1) {
