@@ -302,6 +302,7 @@ function Table() {
 								}),
 						}}
 						options={{
+							actionsColumnIndex: -1,
 							exportButton: true,
 						}}
 					/>
