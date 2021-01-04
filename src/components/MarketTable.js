@@ -107,9 +107,7 @@ function Table({ companies }) {
 		if (newData.market_name === "") {
 			errorList.push("Please enter market name");
 		}
-		if (newData.companies === "") {
-			errorList.push("Please enter companies");
-		}
+
 		if (newData.market_size === "") {
 			errorList.push("Please enter market_size");
 		}
@@ -150,9 +148,7 @@ function Table({ companies }) {
 		if (newData.market_name === undefined) {
 			errorList.push("Please enter market name");
 		}
-		if (newData.companies === undefined) {
-			errorList.push("Please enter companies");
-		}
+
 		if (newData.market_size === undefined) {
 			errorList.push("Please enter market_size");
 		}
