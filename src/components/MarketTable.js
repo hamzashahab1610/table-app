@@ -77,7 +77,7 @@ function Table({ companies }) {
 		// 	),
 		// },
 		{ title: "Market Name", field: "market_name" },
-		{ title: "Companies", field: "companies" },
+		{ title: "Companies", field: "companies", editable: false },
 		{ title: "Keywords", field: "keywords" },
 		{ title: "Market Size", field: "market_size" },
 	];
@@ -91,6 +91,10 @@ function Table({ companies }) {
 		api.get("/markets")
 			.then((res) => {
 				setData(res.data);
+				console.log("data", res.data);
+				api.get(`/markets/${res.data.market_name}`).then((res) => {
+					console.log("res", res);
+				});
 			})
 			.catch((error) => {
 				console.log("Error");

@@ -58,6 +58,13 @@ const tableIcons = {
 // }
 
 function Table({ topPlayer }) {
+	const [markets, setMarkets] = useState([]);
+
+	var lookup = {};
+	markets.forEach((market) => {
+		lookup[market.market_name] = market.market_name;
+	});
+
 	var columns = [
 		//{ title: "id", field: "id", hidden: true },
 		// {
@@ -72,6 +79,7 @@ function Table({ topPlayer }) {
 		// 	),
 		// },
 		{ title: "Company Name", field: "company_name" },
+		{ title: "Market", field: "market", lookup: lookup },
 		{
 			title: "Keywords",
 			field: "keywords",
@@ -119,6 +127,18 @@ function Table({ topPlayer }) {
 	//for error handling
 	const [iserror, setIserror] = useState(false);
 	const [errorMessages, setErrorMessages] = useState([]);
+
+	useEffect(() => {
+		api.get("/markets")
+			.then((res) => {
+				setMarkets(res.data);
+			})
+			.catch((error) => {
+				console.log("Error");
+			});
+	}, []);
+
+	console.log(markets);
 
 	useEffect(() => {
 		if (topPlayer) {

@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import "./App.css";
 
 import MarketTable from "./components/MarketTable";
@@ -38,6 +39,7 @@ import ImageTable from "./components/ImageTable";
 import FileTable from "./components/FileTable";
 import VideoTable from "./components/VideoTable";
 import ReviewSiteTable from "./components/ReviewSiteTable";
+import Profile from "./components/Profile";
 
 import {
 	BrowserRouter as Router,
@@ -71,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
 function App() {
 	const history = useHistory();
 	const [companies, setCompanies] = useState([]);
+	const [markets, setMarkets] = useState([]);
 	const classes = useStyles();
 	const location = useLocation();
 	const [user, setUser] = useState();
@@ -1053,23 +1056,42 @@ function App() {
 										</Grid>
 									</Grid>
 
-									<Grid style={{ width: "5rem" }}>
-										<Link
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
-											<Button
+									<Grid style={{ width: "10rem" }}>
+										<Grid item>
+											<Link
 												style={{
-													textTransform: "initial",
+													textDecoration: "none",
+													color: "white",
 												}}
-												onClick={handleLogout}
-												color="inherit"
 											>
-												Log Out
-											</Button>
-										</Link>
+												<Button
+													style={{
+														textTransform:
+															"initial",
+													}}
+													onClick={handleLogout}
+													color="inherit"
+												>
+													Log Out
+												</Button>
+											</Link>
+											<Link
+												to="/profile"
+												style={{
+													textDecoration: "none",
+													color: "white",
+												}}
+											>
+												<IconButton
+													aria-label="account of current user"
+													aria-controls="primary-search-account-menu"
+													aria-haspopup="true"
+													color="inherit"
+												>
+													<AccountCircle />
+												</IconButton>
+											</Link>
+										</Grid>
 									</Grid>
 								</div>
 							</Toolbar>
@@ -1080,6 +1102,9 @@ function App() {
 				<Switch>
 					<Route path="/signin">
 						<SignIn />
+					</Route>
+					<Route path="/profile">
+						<Profile />
 					</Route>
 					<Route path="/signup">
 						<SignUp />
