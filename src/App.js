@@ -217,23 +217,41 @@ function App() {
 										</Button>
 									</NavLink>
 								</Grid>
-								<Grid item style={{ width: "5rem" }}>
-									<Link
-										style={{
-											textDecoration: "none",
-											color: "white",
-										}}
-									>
-										<Button
+								<Grid style={{ width: "10rem" }}>
+									<Grid item>
+										<Link
 											style={{
-												textTransform: "initial",
+												textDecoration: "none",
+												color: "white",
 											}}
-											onClick={handleLogout}
-											color="inherit"
 										>
-											Log Out
-										</Button>
-									</Link>
+											<Button
+												style={{
+													textTransform: "initial",
+												}}
+												onClick={handleLogout}
+												color="inherit"
+											>
+												Log Out
+											</Button>
+										</Link>
+										<Link
+											to="/profile"
+											style={{
+												textDecoration: "none",
+												color: "white",
+											}}
+										>
+											<IconButton
+												aria-label="account of current user"
+												aria-controls="primary-search-account-menu"
+												aria-haspopup="true"
+												color="inherit"
+											>
+												<AccountCircle />
+											</IconButton>
+										</Link>
+									</Grid>
 								</Grid>
 							</Grid>
 						</Toolbar>
@@ -416,23 +434,41 @@ function App() {
 										</Button>
 									</NavLink>
 								</Grid>
-								<Grid item style={{ width: "5rem" }}>
-									<Link
-										style={{
-											textDecoration: "none",
-											color: "white",
-										}}
-									>
-										<Button
+								<Grid style={{ width: "10rem" }}>
+									<Grid item>
+										<Link
 											style={{
-												textTransform: "initial",
+												textDecoration: "none",
+												color: "white",
 											}}
-											onClick={handleLogout}
-											color="inherit"
 										>
-											Log Out
-										</Button>
-									</Link>
+											<Button
+												style={{
+													textTransform: "initial",
+												}}
+												onClick={handleLogout}
+												color="inherit"
+											>
+												Log Out
+											</Button>
+										</Link>
+										<Link
+											to="/profile"
+											style={{
+												textDecoration: "none",
+												color: "white",
+											}}
+										>
+											<IconButton
+												aria-label="account of current user"
+												aria-controls="primary-search-account-menu"
+												aria-haspopup="true"
+												color="inherit"
+											>
+												<AccountCircle />
+											</IconButton>
+										</Link>
+									</Grid>
 								</Grid>
 							</Grid>
 						</Toolbar>
@@ -477,23 +513,41 @@ function App() {
 										</Button>
 									</NavLink>
 								</Grid>
-								<Grid item style={{ width: "5rem" }}>
-									<Link
-										style={{
-											textDecoration: "none",
-											color: "white",
-										}}
-									>
-										<Button
+								<Grid style={{ width: "10rem" }}>
+									<Grid item>
+										<Link
 											style={{
-												textTransform: "initial",
+												textDecoration: "none",
+												color: "white",
 											}}
-											onClick={handleLogout}
-											color="inherit"
 										>
-											Log Out
-										</Button>
-									</Link>
+											<Button
+												style={{
+													textTransform: "initial",
+												}}
+												onClick={handleLogout}
+												color="inherit"
+											>
+												Log Out
+											</Button>
+										</Link>
+										<Link
+											to="/profile"
+											style={{
+												textDecoration: "none",
+												color: "white",
+											}}
+										>
+											<IconButton
+												aria-label="account of current user"
+												aria-controls="primary-search-account-menu"
+												aria-haspopup="true"
+												color="inherit"
+											>
+												<AccountCircle />
+											</IconButton>
+										</Link>
+									</Grid>
 								</Grid>
 							</Grid>
 						</Toolbar>
